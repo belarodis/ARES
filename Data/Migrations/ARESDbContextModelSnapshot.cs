@@ -54,6 +54,40 @@ namespace Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Funcionarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cargo = "Analista",
+                            DataAdmissao = new DateOnly(2020, 5, 1),
+                            Matricula = "12345",
+                            Nome = "Marcela"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cargo = "Desenvolvedor",
+                            DataAdmissao = new DateOnly(2019, 8, 15),
+                            Matricula = "67890",
+                            Nome = "Isabela"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cargo = "Estagiário",
+                            DataAdmissao = new DateOnly(2023, 1, 10),
+                            Matricula = "54321",
+                            Nome = "João"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Cargo = "Estagiário",
+                            DataAdmissao = new DateOnly(2024, 1, 15),
+                            Matricula = "76538",
+                            Nome = "Schultz"
+                        });
                 });
 
             modelBuilder.Entity("Laboratorio", b =>
@@ -83,6 +117,29 @@ namespace Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Laboratorios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConfigComputadores = "Intel i5, 8GB RAM",
+                            Nome = "Lab A",
+                            QtdComputadores = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConfigComputadores = "Intel i7, 16GB RAM",
+                            Nome = "Lab B",
+                            QtdComputadores = 12
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConfigComputadores = "AMD Ryzen 5, 16GB RAM",
+                            Nome = "Lab C",
+                            QtdComputadores = 8
+                        });
                 });
 
             modelBuilder.Entity("Notebook", b =>
@@ -112,6 +169,29 @@ namespace Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Notebooks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DataAquisicao = new DateOnly(2025, 8, 10),
+                            Descricao = "Dell XPS 13",
+                            NPatrimonio = "NB001"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DataAquisicao = new DateOnly(2025, 8, 5),
+                            Descricao = "MacBook Pro",
+                            NPatrimonio = "NB002"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DataAquisicao = new DateOnly(2025, 8, 15),
+                            Descricao = "Lenovo ThinkPad",
+                            NPatrimonio = "NB003"
+                        });
                 });
 
             modelBuilder.Entity("ReservaLaboratorio", b =>
@@ -138,6 +218,22 @@ namespace Data.Migrations
                     b.HasIndex("FkLaboratorio");
 
                     b.ToTable("ReservaLaboratorios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DataReserva = new DateOnly(2025, 8, 26),
+                            FkFuncionario = 1,
+                            FkLaboratorio = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DataReserva = new DateOnly(2025, 8, 26),
+                            FkFuncionario = 2,
+                            FkLaboratorio = 2
+                        });
                 });
 
             modelBuilder.Entity("ReservaNotebook", b =>
@@ -164,6 +260,15 @@ namespace Data.Migrations
                     b.HasIndex("FkNotebook");
 
                     b.ToTable("ReservaNotebooks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DataReserva = new DateOnly(2025, 8, 25),
+                            FkFuncionario = 3,
+                            FkNotebook = 1
+                        });
                 });
 
             modelBuilder.Entity("ReservaSala", b =>
@@ -190,6 +295,15 @@ namespace Data.Migrations
                     b.HasIndex("FkSala");
 
                     b.ToTable("ReservaSalas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DataReserva = new DateOnly(2025, 8, 27),
+                            FkFuncionario = 1,
+                            FkSala = 1
+                        });
                 });
 
             modelBuilder.Entity("Sala", b =>
@@ -211,6 +325,26 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Salas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NumeroSala = "501",
+                            TemProjetor = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NumeroSala = "102",
+                            TemProjetor = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NumeroSala = "203",
+                            TemProjetor = true
+                        });
                 });
 
             modelBuilder.Entity("ReservaLaboratorio", b =>
