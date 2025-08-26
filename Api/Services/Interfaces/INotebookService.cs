@@ -1,6 +1,6 @@
 using Domain;
 
-namespace Api.Services.Interfaces;
+namespace Api.Services;
 
 public interface INotebookService
 {

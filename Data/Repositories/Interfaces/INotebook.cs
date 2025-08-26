@@ -1,6 +1,6 @@
 using Domain;
 
-namespace Data.Repositories.Interfaces;
+namespace Data.Repositories;
 
 public interface INotebookRepository
 {
