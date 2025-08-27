@@ -1,4 +1,5 @@
-using Data.Repositories;
+using Api.Services.Interfaces;
+using Data.Repositories.Interfaces;
 using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ public class NotebookService : INotebookService
         await _notebookRepository.AddAsync(notebook);
     }
 
-    public async Task<Notebook> GetByIdAsync(int id)
+    public async Task<Notebook?> GetByIdAsync(int id)
     {
         return await _notebookRepository.GetByIdAsync(id);
     }
