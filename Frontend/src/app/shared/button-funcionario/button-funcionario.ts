@@ -40,7 +40,6 @@ export class ButtonFuncionario implements OnInit {
   getFuncionarios(): void {
     this.funcionarioService.getFuncionarios().subscribe((funcionarios) => {
       this.funcionarios = funcionarios;
-      console.log('Funcionários recebidos:', this.funcionarios); // 👈 debug
     });
   }
 }
