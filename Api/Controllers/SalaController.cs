@@ -1,4 +1,4 @@
-using Application.Services;
+using Api.Services;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/salas")]
 public class SalasController : ControllerBase
 {
     private readonly ISalaService _salaService;
