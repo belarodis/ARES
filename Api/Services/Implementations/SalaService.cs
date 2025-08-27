@@ -3,7 +3,7 @@ using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Application.Services;
+namespace Api.Services;
 
 public class SalaService : ISalaService
 {
