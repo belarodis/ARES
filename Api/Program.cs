@@ -18,7 +18,22 @@ builder.Services.AddScoped<Data.Repositories.Interfaces.IFuncionarioRepository, 
 
 builder.Services.AddOpenApi();
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+//permitindo q o front consuma a api
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:4200") // frontend
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 var app = builder.Build();
+app.UseCors(MyAllowSpecificOrigins);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
