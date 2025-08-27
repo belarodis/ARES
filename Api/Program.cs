@@ -1,7 +1,18 @@
+using Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+builder.Services.AddControllers();
+builder.Services.AddDbContext<ARESDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<Api.Services.Interfaces.ILaboratorioService, Api.Services.Implementations.LaboratorioService>();
+builder.Services.AddScoped<Api.Services.Interfaces.INotebookService, Api.Services.Implementations.NotebookService>();
+builder.Services.AddScoped<Data.Repositories.Interfaces.ILaboratorioRepository, Data.Repositories.Implementations.LaboratorioRepository>();
+builder.Services.AddScoped<Data.Repositories.Interfaces.INotebookRepository, Data.Repositories.Implementations.NotebookRepository>();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -14,6 +25,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Map controllers
+app.MapControllers();
+
+// (Opcional) Endpoint de exemplo pode ser mantido ou removido
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -21,7 +36,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

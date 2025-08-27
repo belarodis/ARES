@@ -1,4 +1,5 @@
 using Domain;
+using Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.Implementations;
@@ -18,7 +19,7 @@ public class NotebookRepository : INotebookRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<Notebook> GetByIdAsync(int id)
+    public async Task<Notebook?> GetByIdAsync(int id)
     {
         return await _context.Notebooks.FindAsync(id);
     }
