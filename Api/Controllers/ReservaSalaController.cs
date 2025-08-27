@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/reserva-salas")]
 public class ReservaSalasController : ControllerBase
 {
     private readonly IReservaSalaService _reservaSalaService;
@@ -17,7 +17,7 @@ public class ReservaSalasController : ControllerBase
         _reservaSalaService = reservaSalaService;
     }
 
-    // POST api/reservasalas
+    // POST api/reserva-salas
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] ReservaSala reservaSala)
     {
@@ -30,7 +30,7 @@ public class ReservaSalasController : ControllerBase
         return BadRequest("Sala já reservada para a data ou o funcionário já tem outra reserva não permitida para o dia.");
     }
     
-    // GET api/reservasalas
+    // GET api/reserva-salas
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ReservaSala>>> Get()
     {
@@ -38,7 +38,7 @@ public class ReservaSalasController : ControllerBase
         return Ok(reservas);
     }
 
-    // GET api/reservasalas/5
+    // GET api/reserva-salas/5
     [HttpGet("{id}")]
     public async Task<ActionResult<ReservaSala>> GetById(int id)
     {
@@ -50,7 +50,7 @@ public class ReservaSalasController : ControllerBase
         return Ok(reserva);
     }
     
-    // DELETE api/reservasalas/5
+    // DELETE api/reserva-salas/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
