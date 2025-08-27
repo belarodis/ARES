@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/laboratorios")]
 public class LaboratorioController : ControllerBase
 {
     private readonly ILaboratorioService _laboratorioService;
