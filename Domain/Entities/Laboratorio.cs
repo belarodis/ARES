@@ -16,5 +16,5 @@ public class Laboratorio
     [MaxLength(255)]
     public string ConfigComputadores { get; set; }
 
-    public ICollection<ReservaLaboratorio> Reservas { get; set; }
+    public ICollection<ReservaLaboratorio>? Reservas { get; set; }
 }
