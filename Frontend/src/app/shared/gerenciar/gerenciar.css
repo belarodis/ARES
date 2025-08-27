@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex: 1;
+  border: 2px solid #202c42;
+  box-sizing: border-box;
+  background-color: #0d141f;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.4);
+  height: 100%;
+}
