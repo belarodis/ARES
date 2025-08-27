@@ -5,7 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Application.Services;
+namespace Api.Services;
 
 public class StatusService : IStatusService
 {
@@ -62,4 +62,29 @@ public class StatusService : IStatusService
             .OrderBy(r => r.DataReserva)
             .ToList();
     }
+
+public async Task<IEnumerable<BusiestDayDto>> GetBusiestDaysAsync(DateOnly startDate, DateOnly endDate)
+{
+    var allNotebookReservations = await _notebookRepo.GetAllAsync();
+    var allSalaReservations = await _salaRepo.GetAllAsync();
+    var allLaboratorioReservations = await _laboratorioRepo.GetAllAsync();
+
+    var allReservations = allNotebookReservations
+        .Cast<object>() 
+        .Concat(allSalaReservations)
+        .Concat(allLaboratorioReservations);
+
+    var busiestDays = allReservations
+        .Where(r => r is IHasDateOnly dateOnlyEntity && dateOnlyEntity.DataReserva >= startDate && dateOnlyEntity.DataReserva <= endDate)
+        .GroupBy(r => ((dynamic)r).DataReserva)
+        .Select(g => new BusiestDayDto
+        {
+            Data = g.Key,
+            TotalReservas = g.Count()
+        })
+        .OrderByDescending(d => d.TotalReservas)
+        .Take(5); 
+
+    return busiestDays;
+}
 }

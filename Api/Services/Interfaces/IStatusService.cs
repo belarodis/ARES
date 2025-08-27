@@ -7,4 +7,5 @@ namespace Api.Services;
 public interface IStatusService
 {
     Task<IEnumerable<ReservaStatusDto>> GetReservationsByPeriodAsync(DateOnly startDate, DateOnly endDate);
+    Task<IEnumerable<BusiestDayDto>> GetBusiestDaysAsync(DateOnly startDate, DateOnly endDate);
 }
