@@ -25,8 +25,8 @@ public class Funcionario
     [Required]
     public DateOnly DataAdmissao { get; set; }
 
-    public ICollection<ReservaLaboratorio> ReservasLaboratorio { get; set; }
-    public ICollection<ReservaNotebook> ReservasNotebook { get; set; }
-    public ICollection<ReservaSala> ReservasSala { get; set; }
+    public ICollection<ReservaLaboratorio>? ReservasLaboratorio { get; set; }
+    public ICollection<ReservaNotebook>? ReservasNotebook { get; set; }
+    public ICollection<ReservaSala>? ReservasSala { get; set; }
 }
 

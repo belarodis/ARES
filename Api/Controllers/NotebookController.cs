@@ -1,4 +1,4 @@
-using Api.Services;
+using Api.Services.Interfaces;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/notebooks")]
 public class NotebooksController : ControllerBase
 {
     private readonly INotebookService _notebookService;

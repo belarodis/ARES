@@ -19,5 +19,5 @@ public class Notebook
     public string Descricao { get; set; }
 
     // Navigation properties
-    public ICollection<ReservaNotebook> Reservas { get; set; }
+    public ICollection<ReservaNotebook>? Reservas { get; set; }
 }

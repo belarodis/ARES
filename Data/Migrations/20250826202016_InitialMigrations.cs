@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -151,6 +153,66 @@ namespace Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Funcionarios",
+                columns: new[] { "Id", "Cargo", "DataAdmissao", "Matricula", "Nome" },
+                values: new object[,]
+                {
+                    { 1, "Analista", new DateOnly(2020, 5, 1), "12345", "Marcela" },
+                    { 2, "Desenvolvedor", new DateOnly(2019, 8, 15), "67890", "Isabela" },
+                    { 3, "Estagiário", new DateOnly(2023, 1, 10), "54321", "João" },
+                    { 4, "Estagiário", new DateOnly(2024, 1, 15), "76538", "Schultz" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Laboratorios",
+                columns: new[] { "Id", "ConfigComputadores", "Nome", "QtdComputadores" },
+                values: new object[,]
+                {
+                    { 1, "Intel i5, 8GB RAM", "Lab A", 10 },
+                    { 2, "Intel i7, 16GB RAM", "Lab B", 12 },
+                    { 3, "AMD Ryzen 5, 16GB RAM", "Lab C", 8 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Notebooks",
+                columns: new[] { "Id", "DataAquisicao", "Descricao", "NPatrimonio" },
+                values: new object[,]
+                {
+                    { 1, new DateOnly(2025, 8, 10), "Dell XPS 13", "NB001" },
+                    { 2, new DateOnly(2025, 8, 5), "MacBook Pro", "NB002" },
+                    { 3, new DateOnly(2025, 8, 15), "Lenovo ThinkPad", "NB003" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Salas",
+                columns: new[] { "Id", "NumeroSala", "TemProjetor" },
+                values: new object[,]
+                {
+                    { 1, "501", true },
+                    { 2, "102", false },
+                    { 3, "203", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ReservaLaboratorios",
+                columns: new[] { "Id", "DataReserva", "FkFuncionario", "FkLaboratorio" },
+                values: new object[,]
+                {
+                    { 1, new DateOnly(2025, 8, 26), 1, 1 },
+                    { 2, new DateOnly(2025, 8, 26), 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ReservaNotebooks",
+                columns: new[] { "Id", "DataReserva", "FkFuncionario", "FkNotebook" },
+                values: new object[] { 1, new DateOnly(2025, 8, 25), 3, 1 });
+
+            migrationBuilder.InsertData(
+                table: "ReservaSalas",
+                columns: new[] { "Id", "DataReserva", "FkFuncionario", "FkSala" },
+                values: new object[] { 1, new DateOnly(2025, 8, 27), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Funcionarios_Matricula",
