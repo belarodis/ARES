@@ -10,8 +10,11 @@ builder.Services.AddDbContext<ARESDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<Api.Services.Interfaces.ILaboratorioService, Api.Services.Implementations.LaboratorioService>();
 builder.Services.AddScoped<Api.Services.Interfaces.INotebookService, Api.Services.Implementations.NotebookService>();
+builder.Services.AddScoped<Api.Services.Interfaces.IFuncionarioService, Api.Services.Implementations.FuncionarioService>();
 builder.Services.AddScoped<Data.Repositories.Interfaces.ILaboratorioRepository, Data.Repositories.Implementations.LaboratorioRepository>();
 builder.Services.AddScoped<Data.Repositories.Interfaces.INotebookRepository, Data.Repositories.Implementations.NotebookRepository>();
+builder.Services.AddScoped<Data.Repositories.Interfaces.IFuncionarioRepository, Data.Repositories.Implementations.FuncionarioRepository>();
+
 
 builder.Services.AddOpenApi();
 
