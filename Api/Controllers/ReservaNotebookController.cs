@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebAPI.Controllers;
+namespace Api.Controllers;
 
 [ApiController]
 [Route("api/reserva-notebooks")]
