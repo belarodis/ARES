@@ -6,14 +6,27 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<ARESDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<Api.Services.Interfaces.ILaboratorioService, Api.Services.Implementations.LaboratorioService>();
+builder.Services.AddScoped<Api.Services.Interfaces.IReservaLaboratorioService, Api.Services.Implementations.ReservaLaboratorioService>();
 builder.Services.AddScoped<Api.Services.Interfaces.INotebookService, Api.Services.Implementations.NotebookService>();
+builder.Services.AddScoped<Api.Services.Interfaces.IReservaNotebookService, Api.Services.Implementations.ReservaNotebookService>();
 builder.Services.AddScoped<Api.Services.Interfaces.IFuncionarioService, Api.Services.Implementations.FuncionarioService>();
+builder.Services.AddScoped<Api.Services.Interfaces.ISalaService, Api.Services.Implementations.SalaService>();
+builder.Services.AddScoped<Api.Services.Interfaces.IReservaSalaService, Api.Services.Implementations.ReservaSalaService>();
+builder.Services.AddScoped<Api.Services.Interfaces.IStatusService, Api.Services.Implementations.StatusService>();
+
 builder.Services.AddScoped<Data.Repositories.Interfaces.ILaboratorioRepository, Data.Repositories.Implementations.LaboratorioRepository>();
+builder.Services.AddScoped<Data.Repositories.Interfaces.IReservaLaboratorioRepository, Data.Repositories.Implementations.ReservaLaboratorioRepository>();
 builder.Services.AddScoped<Data.Repositories.Interfaces.INotebookRepository, Data.Repositories.Implementations.NotebookRepository>();
+builder.Services.AddScoped<Data.Repositories.Interfaces.IReservaNotebookRepository, Data.Repositories.Implementations.ReservaNotebookRepository>();
 builder.Services.AddScoped<Data.Repositories.Interfaces.IFuncionarioRepository, Data.Repositories.Implementations.FuncionarioRepository>();
+builder.Services.AddScoped<Data.Repositories.Interfaces.ISalaRepository, Data.Repositories.Implementations.SalaRepository>();
+builder.Services.AddScoped<Data.Repositories.Interfaces.IReservaSalaRepository, Data.Repositories.Implementations.ReservaSalaRepository>();
+
 
 
 builder.Services.AddOpenApi();
