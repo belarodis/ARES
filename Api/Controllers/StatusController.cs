@@ -30,4 +30,16 @@ public class StatusController : ControllerBase
         var status = await _statusService.GetReservationsByPeriodAsync(startDate, endDate);
         return Ok(status);
     }
+
+[HttpGet("dias-mais-ocupados")]
+public async Task<ActionResult<IEnumerable<BusiestDayDto>>> GetBusiestDays([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
+{
+    if (startDate > endDate)
+    {
+        return BadRequest("A data de início não pode ser maior que a data de fim.");
+    }
+    
+    var busiestDays = await _statusService.GetBusiestDaysAsync(startDate, endDate);
+    return Ok(busiestDays);
+}
 }
