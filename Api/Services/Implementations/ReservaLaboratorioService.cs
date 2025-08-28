@@ -3,6 +3,8 @@ using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Services.Interfaces;
+using Api.dtos;
+using System.Linq;
 
 namespace Api.Services.Implementations;
 
@@ -13,8 +15,8 @@ public class ReservaLaboratorioService : IReservaLaboratorioService
     private readonly IReservaSalaRepository _reservaSalaRepository;
 
     public ReservaLaboratorioService(
-        IReservaLaboratorioRepository reservaLaboratorioRepository, 
-        IReservaNotebookRepository reservaNotebookRepository, 
+        IReservaLaboratorioRepository reservaLaboratorioRepository,
+        IReservaNotebookRepository reservaNotebookRepository,
         IReservaSalaRepository reservaSalaRepository)
     {
         _reservaLaboratorioRepository = reservaLaboratorioRepository;
@@ -24,36 +26,52 @@ public class ReservaLaboratorioService : IReservaLaboratorioService
 
     public async Task<bool> AddAsync(ReservaLaboratorio reservaLaboratorio)
     {
-        // Regra de Negócio 1: Verificar se o laboratório já está reservado na data
         bool isReserved = await _reservaLaboratorioRepository.IsLaboratorioReservedOnDateAsync(reservaLaboratorio.FkLaboratorio, reservaLaboratorio.DataReserva);
         if (isReserved)
         {
             return false;
         }
 
-        // Regra de Negócio 2: Um usuário não pode reservar um laboratório e um notebook ou sala.
-        // Verificamos se o funcionário já tem reserva de notebook OU sala no mesmo dia.
         bool hasExistingNotebookReservation = await _reservaNotebookRepository.IsNotebookReservedOnDateAsync(reservaLaboratorio.FkFuncionario, reservaLaboratorio.DataReserva);
         bool hasExistingSalaReservation = await _reservaSalaRepository.IsSalaReservedOnDateAsync(reservaLaboratorio.FkFuncionario, reservaLaboratorio.DataReserva);
-        
+
         if (hasExistingNotebookReservation || hasExistingSalaReservation)
         {
             return false;
         }
 
-        // Se passar todas as validações, adicione a reserva
         await _reservaLaboratorioRepository.AddAsync(reservaLaboratorio);
         return true;
     }
 
-    public async Task<ReservaLaboratorio> GetByIdAsync(int id)
+    public async Task<ReservaLaboratorioDto> GetByIdAsync(int id)
     {
-        return await _reservaLaboratorioRepository.GetByIdAsync(id);
+        var reserva = await _reservaLaboratorioRepository.GetByIdAsync(id);
+        if (reserva == null) return null;
+
+        return new ReservaLaboratorioDto
+        {
+            Id = reserva.Id,
+            FkFuncionario = reserva.FkFuncionario,
+            FkLaboratorio = reserva.FkLaboratorio,
+            DataReserva = reserva.DataReserva,
+            NomeFuncionario = reserva.Funcionario?.Nome,
+            NomeLaboratorio = reserva.Laboratorio?.Nome
+        };
     }
 
-    public async Task<IEnumerable<ReservaLaboratorio>> GetAllAsync()
+    public async Task<IEnumerable<ReservaLaboratorioDto>> GetAllAsync()
     {
-        return await _reservaLaboratorioRepository.GetAllAsync();
+        var reservas = await _reservaLaboratorioRepository.GetAllAsync();
+        return reservas.Select(reserva => new ReservaLaboratorioDto
+        {
+            Id = reserva.Id,
+            FkFuncionario = reserva.FkFuncionario,
+            FkLaboratorio = reserva.FkLaboratorio,
+            DataReserva = reserva.DataReserva,
+            NomeFuncionario = reserva.Funcionario?.Nome,
+            NomeLaboratorio = reserva.Laboratorio?.Nome
+        });
     }
 
     public async Task DeleteAsync(int id)

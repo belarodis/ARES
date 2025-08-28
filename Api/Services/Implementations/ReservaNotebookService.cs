@@ -5,13 +5,14 @@ using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Services.Interfaces;
+using Api.dtos;
 
 namespace Api.Services.Implementations;
 
 public class ReservaNotebookService : IReservaNotebookService
 {
     private readonly IReservaNotebookRepository _reservaNotebookRepository;
-    private readonly IReservaSalaRepository _reservaSalaRepository; 
+    private readonly IReservaSalaRepository _reservaSalaRepository;
     private readonly INotebookRepository _notebookRepository;
 
     public ReservaNotebookService(IReservaNotebookRepository reservaNotebookRepository, IReservaSalaRepository reservaSalaRepository, INotebookRepository notebookRepository)
@@ -33,14 +34,34 @@ public class ReservaNotebookService : IReservaNotebookService
         return true;
     }
 
-    public async Task<ReservaNotebook> GetByIdAsync(int id)
+    public async Task<ReservaNotebookDto> GetByIdAsync(int id)
     {
-        return await _reservaNotebookRepository.GetByIdAsync(id);
+        var reserva = await _reservaNotebookRepository.GetByIdAsync(id);
+        if (reserva == null) return null;
+
+        return new ReservaNotebookDto
+        {
+            Id = reserva.Id,
+            FkFuncionario = reserva.FkFuncionario,
+            FkNotebook = reserva.FkNotebook,
+            DataReserva = reserva.DataReserva,
+            NomeFuncionario = reserva.Funcionario?.Nome,
+            NomeNotebook = reserva.Notebook?.NPatrimonio
+        };
     }
 
-    public async Task<IEnumerable<ReservaNotebook>> GetAllAsync()
+    public async Task<IEnumerable<ReservaNotebookDto>> GetAllAsync()
     {
-        return await _reservaNotebookRepository.GetAllAsync();
+        var reservas = await _reservaNotebookRepository.GetAllAsync();
+        return reservas.Select(reserva => new ReservaNotebookDto
+        {
+            Id = reserva.Id,
+            FkFuncionario = reserva.FkFuncionario,
+            FkNotebook = reserva.FkNotebook,
+            DataReserva = reserva.DataReserva,
+            NomeFuncionario = reserva.Funcionario?.Nome,
+            NomeNotebook = reserva.Notebook?.NPatrimonio
+        });
     }
 
     public async Task DeleteAsync(int id)
