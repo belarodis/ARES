@@ -4,6 +4,7 @@ import { Recurso } from "../recurso/recurso";
 @Component({
   selector: 'app-gerenciar',
   imports: [Recurso],
+  standalone: true,
   templateUrl: './gerenciar.html',
   styleUrl: './gerenciar.css'
 })
