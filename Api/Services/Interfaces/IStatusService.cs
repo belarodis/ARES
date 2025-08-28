@@ -1,8 +1,9 @@
+using Api.dtos;
 using Api.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Api.Services;
+namespace Api.Services.Interfaces;
 
 public interface IStatusService
 {

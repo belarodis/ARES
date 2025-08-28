@@ -1,9 +1,10 @@
-using Api.Services;
+using Api.Services.Interfaces;
 using Api.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.dtos;
 
 namespace Api.Controllers;
 

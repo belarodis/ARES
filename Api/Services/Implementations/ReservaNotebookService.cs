@@ -1,9 +1,12 @@
+using Api.Services;
 using Data.Repositories;
+using Data.Repositories.Interfaces;
 using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.Services.Interfaces;
 
-namespace Application.Services;
+namespace Api.Services.Implementations;
 
 public class ReservaNotebookService : IReservaNotebookService
 {

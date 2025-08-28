@@ -1,9 +1,10 @@
-using Data.Repositories;
+using Data.Repositories.Interfaces;
 using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.Services.Interfaces;
 
-namespace Api.Services;
+namespace Api.Services.Implementations;
 
 public class ReservaLaboratorioService : IReservaLaboratorioService
 {
@@ -32,8 +33,8 @@ public class ReservaLaboratorioService : IReservaLaboratorioService
 
         // Regra de Negócio 2: Um usuário não pode reservar um laboratório e um notebook ou sala.
         // Verificamos se o funcionário já tem reserva de notebook OU sala no mesmo dia.
-        bool hasExistingNotebookReservation = await _reservaNotebookRepository.HasUserReservedOnDateAsync(reservaLaboratorio.FkFuncionario, reservaLaboratorio.DataReserva);
-        bool hasExistingSalaReservation = await _reservaSalaRepository.HasUserReservedOnDateAsync(reservaLaboratorio.FkFuncionario, reservaLaboratorio.DataReserva);
+        bool hasExistingNotebookReservation = await _reservaNotebookRepository.IsNotebookReservedOnDateAsync(reservaLaboratorio.FkFuncionario, reservaLaboratorio.DataReserva);
+        bool hasExistingSalaReservation = await _reservaSalaRepository.IsSalaReservedOnDateAsync(reservaLaboratorio.FkFuncionario, reservaLaboratorio.DataReserva);
         
         if (hasExistingNotebookReservation || hasExistingSalaReservation)
         {
