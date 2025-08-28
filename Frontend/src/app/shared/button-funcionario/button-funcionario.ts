@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Funcionario } from '../../models/funcionario';
-import { FuncionarioService } from '../../services/FuncionarioService';
+import { FuncionarioService } from '../../services/funcionario-service';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
