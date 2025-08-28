@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrations : Migration
+    public partial class SeedReservasExtras : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -201,18 +201,84 @@ namespace Data.Migrations
                 values: new object[,]
                 {
                     { 1, new DateOnly(2025, 8, 26), 1, 1 },
-                    { 2, new DateOnly(2025, 8, 26), 2, 2 }
+                    { 2, new DateOnly(2025, 8, 26), 2, 2 },
+                    { 3, new DateOnly(2025, 8, 28), 3, 3 },
+                    { 4, new DateOnly(2025, 8, 29), 4, 1 },
+                    { 5, new DateOnly(2025, 8, 30), 1, 2 },
+                    { 6, new DateOnly(2025, 8, 31), 2, 3 },
+                    { 7, new DateOnly(2025, 9, 1), 3, 1 },
+                    { 8, new DateOnly(2025, 9, 2), 4, 2 },
+                    { 9, new DateOnly(2025, 9, 3), 1, 3 },
+                    { 10, new DateOnly(2025, 9, 4), 2, 1 },
+                    { 11, new DateOnly(2025, 9, 5), 3, 2 },
+                    { 12, new DateOnly(2025, 9, 6), 4, 3 },
+                    { 13, new DateOnly(2025, 9, 7), 1, 1 },
+                    { 14, new DateOnly(2025, 9, 8), 2, 2 },
+                    { 15, new DateOnly(2025, 9, 9), 3, 3 },
+                    { 16, new DateOnly(2025, 9, 10), 4, 1 },
+                    { 17, new DateOnly(2025, 9, 11), 1, 2 },
+                    { 18, new DateOnly(2025, 9, 12), 2, 3 },
+                    { 19, new DateOnly(2025, 9, 13), 3, 1 },
+                    { 20, new DateOnly(2025, 9, 14), 4, 2 },
+                    { 21, new DateOnly(2025, 9, 15), 1, 3 },
+                    { 22, new DateOnly(2025, 9, 16), 2, 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "ReservaNotebooks",
                 columns: new[] { "Id", "DataReserva", "FkFuncionario", "FkNotebook" },
-                values: new object[] { 1, new DateOnly(2025, 8, 25), 3, 1 });
+                values: new object[,]
+                {
+                    { 1, new DateOnly(2025, 8, 25), 3, 1 },
+                    { 2, new DateOnly(2025, 8, 26), 1, 2 },
+                    { 3, new DateOnly(2025, 8, 27), 2, 3 },
+                    { 4, new DateOnly(2025, 8, 28), 4, 1 },
+                    { 5, new DateOnly(2025, 8, 29), 1, 2 },
+                    { 6, new DateOnly(2025, 8, 30), 2, 3 },
+                    { 7, new DateOnly(2025, 8, 31), 3, 1 },
+                    { 8, new DateOnly(2025, 9, 1), 4, 2 },
+                    { 9, new DateOnly(2025, 9, 2), 1, 3 },
+                    { 10, new DateOnly(2025, 9, 3), 2, 1 },
+                    { 11, new DateOnly(2025, 9, 4), 3, 2 },
+                    { 12, new DateOnly(2025, 9, 5), 4, 3 },
+                    { 13, new DateOnly(2025, 9, 6), 1, 1 },
+                    { 14, new DateOnly(2025, 9, 7), 2, 2 },
+                    { 15, new DateOnly(2025, 9, 8), 3, 3 },
+                    { 16, new DateOnly(2025, 9, 9), 4, 1 },
+                    { 17, new DateOnly(2025, 9, 10), 1, 2 },
+                    { 18, new DateOnly(2025, 9, 11), 2, 3 },
+                    { 19, new DateOnly(2025, 9, 12), 3, 1 },
+                    { 20, new DateOnly(2025, 9, 13), 4, 2 },
+                    { 21, new DateOnly(2025, 9, 14), 1, 3 }
+                });
 
             migrationBuilder.InsertData(
                 table: "ReservaSalas",
                 columns: new[] { "Id", "DataReserva", "FkFuncionario", "FkSala" },
-                values: new object[] { 1, new DateOnly(2025, 8, 27), 1, 1 });
+                values: new object[,]
+                {
+                    { 1, new DateOnly(2025, 8, 27), 1, 1 },
+                    { 2, new DateOnly(2025, 8, 28), 2, 2 },
+                    { 3, new DateOnly(2025, 8, 29), 3, 3 },
+                    { 4, new DateOnly(2025, 8, 30), 4, 1 },
+                    { 5, new DateOnly(2025, 8, 31), 1, 2 },
+                    { 6, new DateOnly(2025, 9, 1), 2, 3 },
+                    { 7, new DateOnly(2025, 9, 2), 3, 1 },
+                    { 8, new DateOnly(2025, 9, 3), 4, 2 },
+                    { 9, new DateOnly(2025, 9, 4), 1, 3 },
+                    { 10, new DateOnly(2025, 9, 5), 2, 1 },
+                    { 11, new DateOnly(2025, 9, 6), 3, 2 },
+                    { 12, new DateOnly(2025, 9, 7), 4, 3 },
+                    { 13, new DateOnly(2025, 9, 8), 1, 1 },
+                    { 14, new DateOnly(2025, 9, 9), 2, 2 },
+                    { 15, new DateOnly(2025, 9, 10), 3, 3 },
+                    { 16, new DateOnly(2025, 9, 11), 4, 1 },
+                    { 17, new DateOnly(2025, 9, 12), 1, 2 },
+                    { 18, new DateOnly(2025, 9, 13), 2, 3 },
+                    { 19, new DateOnly(2025, 9, 14), 3, 1 },
+                    { 20, new DateOnly(2025, 9, 15), 4, 2 },
+                    { 21, new DateOnly(2025, 9, 16), 1, 3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Funcionarios_Matricula",
