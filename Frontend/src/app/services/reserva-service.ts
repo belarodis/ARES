@@ -39,7 +39,7 @@ export class ReservaService {
       fkRecurso: reserva.fkNotebook,
       dataReserva: this.toApiDateString(reserva.dataReserva)
     };
-    return this.http.post<ReservaNotebook>(`${this.apiUrl}/reservanotebooks`, payload).pipe(
+    return this.http.post<ReservaNotebook>(`${this.apiUrl}/reserva-notebooks`, payload).pipe(
       catchError(this.handleError)
     );
   }
@@ -50,7 +50,7 @@ export class ReservaService {
       fkRecurso: reserva.fkSala,
       dataReserva: this.toApiDateString(reserva.dataReserva)
     };
-    return this.http.post<ReservaSala>(`${this.apiUrl}/reservasalas`, payload).pipe(
+    return this.http.post<ReservaSala>(`${this.apiUrl}/reserva-salas`, payload).pipe(
       catchError(this.handleError)
     );
   }
@@ -61,7 +61,7 @@ export class ReservaService {
       fkRecurso: reserva.fkLaboratorio,
       dataReserva: this.toApiDateString(reserva.dataReserva)
     };
-    return this.http.post<ReservaLaboratorio>(`${this.apiUrl}/reservalaboratorios`, payload).pipe(
+    return this.http.post<ReservaLaboratorio>(`${this.apiUrl}/reserva-laboratorios`, payload).pipe(
       catchError(this.handleError)
     );
   }
