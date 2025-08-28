@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 50px;
+  outline: 2px solid #202c42;
+  border-radius: 12px;
+  z-index: 1;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding-inline: 35px;
+  border-radius: 10px;
+  z-index: 2;
+  outline: 2px solid #b6450c00;
+}
+
+.container:hover {
+  background-color: #1a161a;
+  cursor: pointer;
+  outline: 2px solid #b6450c;
+}
+
+.container:hover .text {
+  color: #fffbac;
+}
+.text {
+  margin: 0;
+  padding: 0;
+  color: #9bb0bc;
+}
+
+.container:hover .icon-todos {
+    fill: #fffbac;
+}
+
+.container:hover .icon-notebooks {
+    fill: #fffbac;
+}
+
+.container:hover .icon-salas {
+    fill: #fffbac;
+}
+
+.container:hover .icon-laboratorios {
+  stroke: #fffbac;
+}

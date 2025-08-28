@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/header/app-header.component';
 import { CalendarioComponent } from './shared/calendario/calendario.component';
 import { Gerenciar } from './shared/gerenciar/gerenciar';
+import { Filtro } from "./shared/filtro/filtro";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, CalendarioComponent, Gerenciar],
+  imports: [RouterOutlet, HeaderComponent, CalendarioComponent, Gerenciar, Filtro],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
   standalone: true,
