@@ -3,4 +3,6 @@ export interface ReservaLaboratorio{
     fkFuncionario: number;
     fkLaboratorio: number;
     dataReserva: Date;
+    nomeFuncionario: string;
+    nomeLaboratorio: string;
 }

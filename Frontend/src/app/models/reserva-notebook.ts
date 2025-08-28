@@ -3,4 +3,6 @@ export interface ReservaNotebook{
     fkFuncionario: number;
     fkNotebook: number;
     dataReserva: Date;
+    nomeFuncionario: string;
+    nomeNotebook: string;
 }

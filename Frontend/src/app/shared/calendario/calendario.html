@@ -21,7 +21,7 @@
         <!-- 6 semanas -->
         @for (semana of [0,1,2,3,4,5]; track semana) {
           <div class="semana">
-            @for (dia of grid().slice(semana*7, (semana+1)*7); track dia) {
+            @for (dia of grid().slice(semana*7, (semana+1)*7); track $index) {
               <div class="dia"
                    [class.fora-do-mes]="!dia.inMonth"
                    [class.hoje]="dia.isToday">
