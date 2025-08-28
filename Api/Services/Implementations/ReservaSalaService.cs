@@ -3,7 +3,8 @@ using Data.Repositories.Interfaces;
 using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Services.Interfaces;
+using Api.dtos;
+using System.Linq;
 
 namespace Api.Services.Implementations;
 
@@ -26,27 +27,44 @@ public class ReservaSalaService : IReservaSalaService
             return false;
         }
 
-        // Regra de Negócio 2: Um usuário pode reservar uma sala E um notebook, mas não qualquer outra combinação.
-        // A lógica é verificar se o funcionário já tem uma reserva de laboratório na mesma data, pois essa combinação não é permitida.
         bool hasExistingLabReservation = await _reservaLaboratorioRepository.HasUserReservedOnDateAsync(reservaSala.FkFuncionario, reservaSala.DataReserva);
         if (hasExistingLabReservation)
         {
             return false;
         }
 
-        // Se passar todas as validações, adicione a reserva
         await _reservaSalaRepository.AddAsync(reservaSala);
         return true;
     }
 
-    public async Task<ReservaSala> GetByIdAsync(int id)
+    public async Task<ReservaSalaDto> GetByIdAsync(int id)
     {
-        return await _reservaSalaRepository.GetByIdAsync(id);
+        var reserva = await _reservaSalaRepository.GetByIdAsync(id);
+        if (reserva == null) return null;
+
+        return new ReservaSalaDto
+        {
+            Id = reserva.Id,
+            FkFuncionario = reserva.FkFuncionario,
+            FkSala = reserva.FkSala,
+            DataReserva = reserva.DataReserva,
+            NomeFuncionario = reserva.Funcionario?.Nome,
+            NumeroSala = reserva.Sala?.NumeroSala
+        };
     }
 
-    public async Task<IEnumerable<ReservaSala>> GetAllAsync()
+    public async Task<IEnumerable<ReservaSalaDto>> GetAllAsync()
     {
-        return await _reservaSalaRepository.GetAllAsync();
+        var reservas = await _reservaSalaRepository.GetAllAsync();
+        return reservas.Select(reserva => new ReservaSalaDto
+        {
+            Id = reserva.Id,
+            FkFuncionario = reserva.FkFuncionario,
+            FkSala = reserva.FkSala,
+            DataReserva = reserva.DataReserva,
+            NomeFuncionario = reserva.Funcionario?.Nome,
+            NumeroSala = reserva.Sala?.NumeroSala
+        });
     }
 
     public async Task DeleteAsync(int id)
