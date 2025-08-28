@@ -1,4 +1,11 @@
-<svg id="notebook-icon" xmlns="http://www.w3.org/2000/svg" width="56" height="37" viewBox="0 0 56 37" fill="none">
+<svg
+  id="notebook-icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="56"
+  height="37"
+  viewBox="0 0 56 37"
+  fill="none"
+>
   <path
     d="M46.1705 32.1607C48.6749 32.1607 50.724 30.1116 50.724 27.6071V4.83928C50.724 2.33481 48.6749 0.285706 46.1705 0.285706H9.74191C7.23744 0.285706 5.18834 2.33481 5.18834 4.83928V27.6071C5.18834 30.1116 7.23744 32.1607 9.74191 32.1607H2.91155C1.65932 32.1607 0.634766 33.1853 0.634766 34.4375C0.634766 35.6897 1.65932 36.7143 2.91155 36.7143H53.0008C54.2531 36.7143 55.2776 35.6897 55.2776 34.4375C55.2776 33.1853 54.2531 32.1607 53.0008 32.1607H46.1705ZM12.0187 4.83928H43.8937C45.1459 4.83928 46.1705 5.86383 46.1705 7.11606V25.3303C46.1705 26.5826 45.1459 27.6071 43.8937 27.6071H12.0187C10.7665 27.6071 9.74191 26.5826 9.74191 25.3303V7.11606C9.74191 5.86383 10.7665 4.83928 12.0187 4.83928Z"
     fill="#4F5765"
@@ -7,7 +14,7 @@
 
 <div class="mid-container" id="mid-container">
   <div class="title-container" id="title-container">
-    <p class="text" id="title-text">Notebook Gamer G15</p>
+    <p class="text" id="title-text">{{ notebook?.nPatrimonio }}</p>
     <svg
       id="info-icon"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,6 +23,7 @@
       viewBox="0 0 16 16"
       fill="#4F5765"
     >
+      <title> {{ notebook?.descricao }} </title>
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
@@ -32,7 +40,7 @@
     </svg>
   </div>
 
-  <p class="subtext" id="subtext">Aquisição: 26/08/2025</p>
+  <p class="subtext" id="subtext">Aquisição: {{ notebook?.dataAquisicao }}</p>
 </div>
 
 <div class="right-container" id="right-container">

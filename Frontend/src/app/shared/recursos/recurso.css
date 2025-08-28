@@ -14,6 +14,10 @@
     
 }
 
+#info-icon:hover {
+  fill:#b6450c
+}
+
 #mid-container {
   display: flex;
   flex-direction: column;
