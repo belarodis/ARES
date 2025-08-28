@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Funcionario } from '../../models/funcionario';
 import { FuncionarioService } from '../../services/FuncionarioService';
-import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-button-funcionario',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './button-funcionario.html',
+  standalone: true,
   styleUrl: './button-funcionario.css',
 })
 export class ButtonFuncionario implements OnInit {

@@ -1,15 +1,18 @@
 .container {
   display: flex;
+  position: relative;
+  align-items: center;
+  gap: 6px;
+
   border: 1px solid #b6450c;
-  color: #9bb0bc;
   border-radius: 6px;
   background-color: #1a161a;
   padding-inline: 12px;
   padding-block: 6px;
-  align-items: center;
-  gap: 4px;
+
   transition: all 0.3s ease;
 }
+
 
 .container:hover {
   cursor: pointer;
@@ -19,15 +22,29 @@
 
 .icon {
   height: 15px;
-  margin-right: 8px;
-  transition: all 0.3s ease;
+  margin-right: 4px;
+  fill: #9bb0bc;
 }
 
 .container:hover .icon {
   fill: #fffbac;
 }
 
-.text {
+/* 🔥 aqui o truque: estilizar o select */
+.custom-select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #9bb0bc;
   font-size: 14px;
-  margin: 0;
+  font-family: inherit;
+
+  /* remove setinha nativa */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  cursor: pointer;
 }
+
