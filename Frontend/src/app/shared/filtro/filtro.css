@@ -18,35 +18,61 @@
   border-radius: 10px;
   z-index: 2;
   outline: 2px solid #b6450c00;
+  transition: all 0.1s ease;
 }
 
 .container:hover {
-  background-color: #1a161a;
   cursor: pointer;
-  outline: 2px solid #b6450c;
 }
 
 .container:hover .text {
   color: #fffbac;
 }
+
+.container .text {
+  transition: all 0.2s ease;
+}
+
+.container.ativo .text {
+  color: #fffbac;
+}
+
+.container.ativo {
+  background-color: #1a161a;
+  cursor: pointer;
+  outline: 2px solid #b6450c;
+  z-index: 3;
+}
+
 .text {
   margin: 0;
   padding: 0;
   color: #9bb0bc;
 }
 
-.container:hover .icon-todos {
-    fill: #fffbac;
+.container.ativo .icon-todos,
+.container.ativo .icon-notebooks,
+.container.ativo .icon-salas {
+  fill: #fffbac;
 }
 
-.container:hover .icon-notebooks {
-    fill: #fffbac;
+.container.ativo .icon-laboratorios {
+  stroke: #fffbac;
 }
 
+.container:hover .icon-todos,
+.container:hover .icon-notebooks,
 .container:hover .icon-salas {
-    fill: #fffbac;
+  fill: #fffbac;
 }
 
 .container:hover .icon-laboratorios {
   stroke: #fffbac;
+}
+
+.icon-todos,
+.icon-notebooks,
+.icon-salas,
+.icon-laboratorios {
+  transition: all 0.2s ease;
 }
