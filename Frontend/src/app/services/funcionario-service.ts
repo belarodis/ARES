@@ -10,7 +10,7 @@ export class FuncionarioService {
     private apiUrl = 'http://localhost:5229/api/funcionarios';
 
     constructor(private http: HttpClient) { }
-
+    
     getFuncionarios(): Observable<Funcionario[]> {
         return this.http.get<Funcionario[]>(this.apiUrl);
     }
