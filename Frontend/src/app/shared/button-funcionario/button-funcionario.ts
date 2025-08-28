@@ -15,18 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ButtonFuncionario implements OnInit {
   form!: FormGroup;
-  public funcionarios: Funcionario[] = [
-    {
-      id: 1,
-      matricula: '2025A001',
-      nome: 'Maria Silva',
-      cargo: 'Analista de Sistemas',
-      dataAdmissao: new Date('2023-03-15'),
-      reservasLaboratorio: [],
-      reservasNotebook: [],
-      reservasSala: [],
-    },
-  ];
+  public funcionarios: Funcionario[] = [];
 
   constructor(private funcionarioService: FuncionarioService, private fb: FormBuilder) {}
 
