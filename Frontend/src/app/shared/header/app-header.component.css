@@ -44,6 +44,14 @@
   height:fit-content;
 }
 
+.destaque {
+  transition: color 5s ease;
+}
+
+.titulo:hover .destaque {
+  color: #FF7824;
+}
+
 .button-funcionarios {
   height: 30px;
   width: 100px;
