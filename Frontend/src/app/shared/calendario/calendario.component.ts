@@ -2,6 +2,7 @@ import { Component, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { buildMonthGrid, visibleRangeISO } from './calendario.util';
 import { DiaCell, DiaResumo } from '../../models/calendario.model';
+import { ReservaService } from '../../services/reserva-service';
 
 @Component({
   selector: 'app-calendario',
@@ -22,7 +23,7 @@ export class CalendarioComponent {
 ];
 
 
-  constructor() {
+  constructor(private reservaService: ReservaService) {
     effect(() => {
       const cells = buildMonthGrid(this.year(), this.month0());
 
