@@ -1,11 +1,14 @@
-using Data.Repositories;
+using Data.Repositories.Interfaces;
 using Api.DTOs;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.dtos;
+using Api.Services.Interfaces;
+using Domain;
 
-namespace Api.Services;
+namespace Api.Services.Implementations;
 
 public class StatusService : IStatusService
 {
@@ -79,7 +82,7 @@ public async Task<IEnumerable<BusiestDayDto>> GetBusiestDaysAsync(DateOnly start
         .GroupBy(r => ((dynamic)r).DataReserva)
         .Select(g => new BusiestDayDto
         {
-            Data = g.Key,
+            Data = g.Key,   
             TotalReservas = g.Count()
         })
         .OrderByDescending(d => d.TotalReservas)

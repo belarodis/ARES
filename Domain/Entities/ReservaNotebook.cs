@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Domain;
 
-public class ReservaNotebook
+public class ReservaNotebook : IHasDateOnly
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

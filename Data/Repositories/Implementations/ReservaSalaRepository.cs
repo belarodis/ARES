@@ -2,8 +2,9 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Data.Repositories.Interfaces;
 
-namespace Data.Repositories;
+namespace Data.Repositories.Implementations;
 
 public class ReservaSalaRepository : IReservaSalaRepository
 {
