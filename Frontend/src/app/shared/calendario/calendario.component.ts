@@ -6,7 +6,8 @@ import { ReservaService } from '../../services/reserva-service';
 import { NotebookService } from '../../services/notebook-service';
 import { LaboratorioService } from '../../services/laboratorio-service';
 import { SalaService } from '../../services/sala-service';
-import { ModalReserva } from "../modal-reserva/modal-reserva";
+import { ModalReserva } from '../modal-reserva/modal-reserva';
+import { FiltroService } from '../../services/filtro.service';
 
 @Component({
   selector: 'app-calendario',
@@ -39,20 +40,23 @@ export class CalendarioComponent {
   availableLaboratorios = signal<DiaResumo[]>([]);
   availableSalas = signal<DiaResumo[]>([]);
 
+  tipoAtual = signal('');
+
   constructor(
     private notebookService: NotebookService,
     private laboratorioService: LaboratorioService,
-    private salaService: SalaService
+    private salaService: SalaService,
+    private filtroService: FiltroService
   ) {
     effect(() => {
       const cells = buildMonthGrid(this.year(), this.month0());
 
-      const reservasMap = this.availableSalas()
-      .filter(d => d.total > 0)
-      .reduce<Record<string, DiaResumo>>((acc, d) => {
-        acc[d.date] = d;
-        return acc;
-      }, {});
+      const reservasMap = this.tipoSelecionado
+        .filter((d) => d.total > 0)
+        .reduce<Record<string, DiaResumo>>((acc, d) => {
+          acc[d.date] = d;
+          return acc;
+        }, {});
 
       this.grid.set(
         cells.map((c) => ({
@@ -64,22 +68,37 @@ export class CalendarioComponent {
   }
 
   ngOnInit(): void {
+    this.filtroService.tipoSelected$.subscribe((tipo) => {
+      this.tipoAtual.set(tipo);
+    });
+
     this.getAvailableNotebookForCalendario();
     this.getAvailableLaboratorioForCalendario();
     this.getAvailableSalaForCalendario();
   }
 
+  get tipoSelecionado() {
+    if (this.tipoAtual() === 'notebook') {
+      return this.availableNotebooks();
+    }
+    if (this.tipoAtual() === 'laboratorio') {
+      return this.availableLaboratorios();
+    }
+    if (this.tipoAtual() === 'sala') {
+      return this.availableSalas();
+    }
+    return [];
+  }
+
   getAvailableNotebookForCalendario(): void {
     this.notebookService.getDisponiveisPorDia().subscribe((availableNotebooks) => {
       this.availableNotebooks.set(availableNotebooks);
-      console.log(availableNotebooks);
     });
   }
 
   getAvailableLaboratorioForCalendario(): void {
     this.laboratorioService.getDisponiveisPorDia().subscribe((availableLaboratorios) => {
       this.availableLaboratorios.set(availableLaboratorios);
-      console.log(availableLaboratorios);
     });
   }
 
@@ -113,17 +132,16 @@ export class CalendarioComponent {
   }
 
   dataSelecionada: string | null = null;
-  isVisible: boolean = false
-  
-  abrirModal(data: string){
+  isVisible: boolean = false;
+
+  abrirModal(data: string) {
     console.log(data);
     this.dataSelecionada = data;
     this.isVisible = true;
   }
 
-  fecharModal(){
+  fecharModal() {
     this.isVisible = false;
     this.dataSelecionada = null;
   }
-
 }

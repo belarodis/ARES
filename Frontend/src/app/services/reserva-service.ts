@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { ReservaLaboratorio } from '../models/reserva-laboratorio';
 import { ReservaNotebook } from '../models/reserva-notebook';
 import { ReservaSala } from '../models/reserva-sala';
@@ -33,6 +33,107 @@ export class ReservaService {
 
   private toApiDateString(date: Date): string {
     return date.toISOString().split('T')[0];
+  }
+
+  getReservasNotebookForCalendario(): Observable<DiaResumo[]> {
+    return this.http.get<ReservaNotebook[]>(this.apiUrlNotebooks).pipe(
+      map((reservas: ReservaNotebook[]) => {
+        const resumoPorDia: { [date: string]: DiaResumo } = {};
+
+        reservas.forEach((reserva) => {
+          const dateKey =
+            typeof reserva.dataReserva === 'string'
+              ? reserva.dataReserva
+              : new Date(reserva.dataReserva).toISOString().split('T')[0];
+
+          if (!resumoPorDia[dateKey]) {
+            resumoPorDia[dateKey] = {
+              date: dateKey,
+
+              total: 0,
+
+              porTipo: { NOTEBOOK: 0 },
+            };
+          }
+
+          resumoPorDia[dateKey].total += 1;
+
+          resumoPorDia[dateKey].porTipo.NOTEBOOK =
+            (resumoPorDia[dateKey].porTipo.NOTEBOOK || 0) + 1;
+        });
+
+        return Object.values(resumoPorDia);
+      }),
+
+      catchError(this.handleError)
+    );
+  }
+
+  getReservasLaboratorioForCalendario(): Observable<DiaResumo[]> {
+    return this.http.get<ReservaLaboratorio[]>(this.apiUrlLaboratorios).pipe(
+      map((reservas: ReservaLaboratorio[]) => {
+        const resumoPorDia: { [date: string]: DiaResumo } = {};
+
+        reservas.forEach((reserva) => {
+          const dateKey =
+            typeof reserva.dataReserva === 'string'
+              ? reserva.dataReserva
+              : new Date(reserva.dataReserva).toISOString().split('T')[0];
+
+          if (!resumoPorDia[dateKey]) {
+            resumoPorDia[dateKey] = {
+              date: dateKey,
+
+              total: 0,
+
+              porTipo: { LABORATORIO: 0 },
+            };
+          }
+
+          resumoPorDia[dateKey].total += 1;
+
+          resumoPorDia[dateKey].porTipo.LABORATORIO =
+            (resumoPorDia[dateKey].porTipo.LABORATORIO || 0) + 1;
+        });
+
+        return Object.values(resumoPorDia);
+      }),
+
+      catchError(this.handleError)
+    );
+  }
+
+  getReservasSalaForCalendario(): Observable<DiaResumo[]> {
+    return this.http.get<ReservaSala[]>(this.apiUrlSalas).pipe(
+      map((reservas: ReservaSala[]) => {
+        const resumoPorDia: { [date: string]: DiaResumo } = {};
+
+        reservas.forEach((reserva) => {
+          const dateKey =
+            typeof reserva.dataReserva === 'string'
+              ? reserva.dataReserva
+              : new Date(reserva.dataReserva).toISOString().split('T')[0];
+
+          if (!resumoPorDia[dateKey]) {
+            resumoPorDia[dateKey] = {
+              date: dateKey,
+
+              total: 0,
+
+              porTipo: { SALA: 0 },
+            };
+          }
+
+          resumoPorDia[dateKey].total += 1;
+
+          resumoPorDia[dateKey].porTipo.SALA = (resumoPorDia[dateKey].porTipo.SALA || 0) + 1;
+        });
+
+        return Object.values(resumoPorDia);
+      }),
+
+      catchError(this.handleError)
+    );
   }
 
   createNotebookReservation(reserva: {
