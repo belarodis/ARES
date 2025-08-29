@@ -11,11 +11,10 @@
 }
 
 #notebook-icon {
-    
 }
 
 #info-icon:hover {
-  fill:#b6450c
+  fill: #b6450c;
 }
 
 #mid-container {
@@ -107,14 +106,35 @@
   cursor: pointer;
 }
 
-#delete-button:hover #delete-icon{
-  fill: #FF7824
+#delete-button:hover #delete-icon {
+  fill: #ff7824;
 }
 
 #edit-button:hover {
   cursor: pointer;
 }
 
-#edit-button:hover #edit-icon{
-  fill: #FF7824
+#edit-button:hover #edit-icon {
+  fill: #ff7824;
 }
+
+.tooltip {
+  position: fixed; /* segue o mouse */
+  background: #101924;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  pointer-events: none; /* não atrapalha hover */
+  z-index: 1000;
+
+  max-width: 450px;   /* largura máxima */
+  white-space: normal; /* permite quebra de linha */
+  word-wrap: break-word; /* quebra palavras longas */
+
+  opacity: 0.95;
+  transform: translateY(-4px);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+

@@ -12,12 +12,28 @@
   flex-direction: column;
   gap: 10px;
   overflow-y: auto;
+
+  /* ativa suavidade */
+  scrollbar-width: thin;          /* Firefox */
+  scrollbar-color: #4f5765 #0d141f; /* Firefox: cor barra e trilho */
 }
 
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #9bb0bc;
-  margin: 0;
-  margin-bottom: 20px;
+/* Chrome, Edge, Safari */
+:host::-webkit-scrollbar {
+  width: 8px;             /* largura da barra */
+}
+
+:host::-webkit-scrollbar-track {
+  background: #0d141f;     /* fundo do trilho */
+  border-radius: 10px;
+}
+
+:host::-webkit-scrollbar-thumb {
+  background-color: #4f5765; /* cor da barra */
+  border-radius: 10px;
+  border: 2px solid #0d141f; /* borda separando do fundo */
+}
+
+:host::-webkit-scrollbar-thumb:hover {
+  background-color: #6c7a89; /* cor ao passar o mouse */
 }

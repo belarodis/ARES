@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Notebook } from '../../../models/notebook';
 import { NotebookService } from '../../../services/notebook-service';
-import { ModalEditNotebook } from "../../modal-edit-notebook/modal-edit-notebook";
+import { ModalEditNotebook } from '../../modal-edit-notebook/modal-edit-notebook';
 
 @Component({
   selector: 'app-recurso-notebook',
@@ -11,7 +11,7 @@ import { ModalEditNotebook } from "../../modal-edit-notebook/modal-edit-notebook
   styleUrl: '../recurso.css',
 })
 export class RecursoNotebook {
-@Input({ required: true }) notebook!: Notebook;
+  @Input({ required: true }) notebook!: Notebook;
 
   constructor(private notebookService: NotebookService) {}
 
@@ -36,5 +36,14 @@ export class RecursoNotebook {
 
   fecharModalEdicao() {
     this.isEditVisible = false;
+  }
+
+  showTooltip = false;
+  tooltipX = 0;
+  tooltipY = 0;
+
+  onMouseMove(event: MouseEvent) {
+    this.tooltipX = event.clientX + 12; // desloca do cursor
+    this.tooltipY = event.clientY + 12;
   }
 }
