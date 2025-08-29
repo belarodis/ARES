@@ -2,15 +2,16 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Notebook } from '../../../models/notebook';
 import { NotebookService } from '../../../services/notebook-service';
+import { ModalEditNotebook } from "../../modal-edit-notebook/modal-edit-notebook";
 
 @Component({
   selector: 'app-recurso-notebook',
-  imports: [CommonModule],
+  imports: [CommonModule, ModalEditNotebook],
   templateUrl: './recurso-notebook.html',
   styleUrl: '../recurso.css',
 })
 export class RecursoNotebook {
-  @Input() notebook?: Notebook;
+@Input({ required: true }) notebook!: Notebook;
 
   constructor(private notebookService: NotebookService) {}
 
@@ -25,5 +26,15 @@ export class RecursoNotebook {
         error: (err) => console.error('Erro ao deletar notebook:', err),
       });
     }
+  }
+
+  isEditVisible: boolean = false;
+
+  abrirModalEdicao() {
+    this.isEditVisible = true;
+  }
+
+  fecharModalEdicao() {
+    this.isEditVisible = false;
   }
 }

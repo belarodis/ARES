@@ -43,7 +43,7 @@
   <p class="subtext" id="subtext">Aquisição: {{ notebook?.dataAquisicao }}</p>
 </div>
 
-<div class="right-container" id="right-container">
+<div class="right-container" id="right-container" (click)="abrirModalEdicao()">
   <div class="edit-button" id="edit-button">
     <svg
       id="edit-icon"
@@ -63,6 +63,7 @@
     class="delete-button"
     id="delete-button"
     *ngIf="notebook"
+    (click)="$event.stopPropagation()"
     (click)="deletarNotebook(notebook.id)"
   >
     <svg
@@ -80,3 +81,9 @@
     </svg>
   </div>
 </div>
+
+<!-- Modal de edição -->
+@if (isEditVisible) {
+<app-modal-edit-notebook [notebook]="notebook" (close)="fecharModalEdicao()">
+</app-modal-edit-notebook>
+}
