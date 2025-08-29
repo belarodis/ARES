@@ -19,16 +19,25 @@ public class ReservaNotebooksController : ControllerBase
 
     // POST api/reserva-notebooks
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] ReservaNotebook reservaNotebook)
+public async Task<IActionResult> Post([FromBody] Api.dtos.ReservaNotebookDto reservaNotebookDto)
+{
+    // Mapeamento manual do DTO para a entidade
+    var reservaNotebook = new ReservaNotebook
     {
-        bool success = await _reservaNotebookService.AddAsync(reservaNotebook);
-        if (success)
-        {
-            return CreatedAtAction(nameof(GetById), new { id = reservaNotebook.Id }, reservaNotebook);
-        }
-        
-        return BadRequest("Notebook já reservado para a data ou o funcionário já tem outra reserva para o dia.");
+        FkFuncionario = reservaNotebookDto.FkFuncionario,
+        FkNotebook = reservaNotebookDto.FkNotebook,
+        DataReserva = reservaNotebookDto.DataReserva
+        // Adicione outros campos se necessário
+    };
+
+    bool success = await _reservaNotebookService.AddAsync(reservaNotebook);
+    if (success)
+    {
+        return CreatedAtAction(nameof(GetById), new { id = reservaNotebook.Id }, reservaNotebook);
     }
+
+    return BadRequest("Notebook já reservado para a data ou o funcionário já tem outra reserva para o dia.");
+}
     
     // GET api/reserva-notebooks
     [HttpGet]

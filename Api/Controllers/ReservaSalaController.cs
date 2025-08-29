@@ -18,18 +18,28 @@ public class ReservaSalasController : ControllerBase
     }
 
     // POST api/reserva-salas
+    // ...existing code...
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] ReservaSala reservaSala)
+    public async Task<IActionResult> Post([FromBody] Api.dtos.ReservaSalaDto reservaSalaDto)
     {
+        // Mapeamento manual do DTO para a entidade
+        var reservaSala = new ReservaSala
+        {
+            FkFuncionario = reservaSalaDto.FkFuncionario,
+            FkSala = reservaSalaDto.FkSala,
+            DataReserva = reservaSalaDto.DataReserva
+            // Adicione outros campos se necessário
+        };
+
         bool success = await _reservaSalaService.AddAsync(reservaSala);
         if (success)
         {
             return CreatedAtAction(nameof(GetById), new { id = reservaSala.Id }, reservaSala);
         }
-        
-        return BadRequest("Sala já reservada para a data ou o funcionário já tem outra reserva não permitida para o dia.");
+
+        return BadRequest("Sala já reservado para a data ou o funcionário já tem outra reserva para o dia.");
     }
-    
+
     // GET api/reserva-salas
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ReservaSala>>> Get()
@@ -49,7 +59,7 @@ public class ReservaSalasController : ControllerBase
         }
         return Ok(reserva);
     }
-    
+
     // DELETE api/reserva-salas/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

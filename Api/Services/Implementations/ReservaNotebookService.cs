@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Services.Interfaces;
 using Api.dtos;
+using Data.Repositories.Implementations;
 
 namespace Api.Services.Implementations;
 
@@ -13,21 +14,29 @@ public class ReservaNotebookService : IReservaNotebookService
 {
     private readonly IReservaNotebookRepository _reservaNotebookRepository;
     private readonly IReservaSalaRepository _reservaSalaRepository;
+    private readonly IReservaLaboratorioRepository _reservaLaboratorioRepository;
     private readonly INotebookRepository _notebookRepository;
 
-    public ReservaNotebookService(IReservaNotebookRepository reservaNotebookRepository, IReservaSalaRepository reservaSalaRepository, INotebookRepository notebookRepository)
+    public ReservaNotebookService(IReservaNotebookRepository reservaNotebookRepository, IReservaSalaRepository reservaSalaRepository, INotebookRepository notebookRepository, IReservaLaboratorioRepository reservaLaboratorioRepository)
     {
         _reservaNotebookRepository = reservaNotebookRepository;
         _reservaSalaRepository = reservaSalaRepository;
+        _reservaLaboratorioRepository = reservaLaboratorioRepository;
         _notebookRepository = notebookRepository;
     }
 
     public async Task<bool> AddAsync(ReservaNotebook reservaNotebook)
     {
-        bool isReserved = await _reservaNotebookRepository.IsNotebookReservedOnDateAsync(reservaNotebook.FkNotebook, reservaNotebook.DataReserva);
-        if (isReserved)
+        bool isNotebookReserved = await _reservaNotebookRepository.IsNotebookReservedOnDateAsync(reservaNotebook.FkNotebook, reservaNotebook.DataReserva);
+        if (isNotebookReserved)
         {
             return false;
+        }
+
+        bool hasLabReservation = await _reservaLaboratorioRepository.IsLaboratorioReservedOnDateAsync(reservaNotebook.FkFuncionario, reservaNotebook.DataReserva);
+        if (hasLabReservation)
+        {
+            return false; // Ou retorne uma mensagem específica
         }
 
         await _reservaNotebookRepository.AddAsync(reservaNotebook);

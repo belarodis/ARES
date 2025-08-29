@@ -33,14 +33,14 @@ public class ReservaLaboratorioRepository : IReservaLaboratorioRepository
             .Include(r => r.Funcionario)
             .ToListAsync();
     }
-    
+
     // Implementação da verificação de disponibilidade do laboratório
-    public async Task<bool> IsLaboratorioReservedOnDateAsync(int laboratorioId, DateOnly dataReserva)
+    public async Task<bool> IsLaboratorioReservedOnDateAsync(int funcionarioId, DateOnly dataReserva)
     {
         return await _context.ReservaLaboratorios
-            .AnyAsync(r => r.FkLaboratorio == laboratorioId && r.DataReserva == dataReserva);
+            .AnyAsync(r => r.FkFuncionario == funcionarioId && r.DataReserva == dataReserva);
     }
-    
+
     public async Task<bool> HasUserReservedOnDateAsync(int funcionarioId, DateOnly dataReserva)
     {
         return await _context.ReservaLaboratorios

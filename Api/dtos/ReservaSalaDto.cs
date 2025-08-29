@@ -8,7 +8,7 @@ namespace Api.dtos
         public int FkFuncionario { get; set; }
         public int FkSala { get; set; }
         public DateOnly DataReserva { get; set; }
-        public string NomeFuncionario { get; set; }
-        public string NumeroSala { get; set; }
+        public string? NomeFuncionario { get; set; }
+        public string? NumeroSala { get; set; }
     }
 }

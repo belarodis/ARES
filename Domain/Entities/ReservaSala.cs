@@ -19,8 +19,8 @@ public class ReservaSala : IHasDateOnly
 
     // Navigation properties
     [ForeignKey("FkFuncionario")]
-    public Funcionario Funcionario { get; set; }
+    public Funcionario? Funcionario { get; set; }
 
     [ForeignKey("FkSala")]
-    public Sala Sala { get; set; }
+    public Sala? Sala { get; set; }
 }
