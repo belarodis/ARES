@@ -114,6 +114,7 @@ export class CalendarioComponent {
   isVisible: boolean = false
   
   abrirModal(data: string){
+    console.log(data);
     this.dataSelecionada = data;
     this.isVisible = true;
   }

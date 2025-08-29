@@ -53,21 +53,21 @@
 .container.ativo .icon-todos,
 .container.ativo .icon-notebooks,
 .container.ativo .icon-salas {
-  fill: #fffbac;
+  fill: #FF7824;
 }
 
 .container.ativo .icon-laboratorios {
-  stroke: #fffbac;
+  stroke: #FF7824;
 }
 
 .container:hover .icon-todos,
 .container:hover .icon-notebooks,
 .container:hover .icon-salas {
-  fill: #fffbac;
+  fill: #FF7824;
 }
 
 .container:hover .icon-laboratorios {
-  stroke: #fffbac;
+  stroke: #FF7824;
 }
 
 .icon-todos,
