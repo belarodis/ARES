@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Seeds : Migration
+    public partial class DBandSeeds : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,7 +66,8 @@ namespace Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NumeroSala = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    TemProjetor = table.Column<bool>(type: "bit", nullable: false)
+                    TemProjetor = table.Column<bool>(type: "bit", nullable: false),
+                    qtdLugares = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,12 +188,12 @@ namespace Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Salas",
-                columns: new[] { "Id", "NumeroSala", "TemProjetor" },
+                columns: new[] { "Id", "NumeroSala", "TemProjetor", "qtdLugares" },
                 values: new object[,]
                 {
-                    { 1, "501", true },
-                    { 2, "102", false },
-                    { 3, "203", true }
+                    { 1, "501", true, 40 },
+                    { 2, "102", false, 30 },
+                    { 3, "203", true, 20 }
                 });
 
             migrationBuilder.InsertData(
