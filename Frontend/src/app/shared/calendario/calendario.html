@@ -40,8 +40,11 @@
       }
     </div>
     <div class="analytics-container">
-      <p class="analytics-text">12 Reservas</p>
-      <p class="analytics-text">Dia mais ocupado: 14/08/2025</p>
+      <p class="analytics-text">Alocações hoje: </p>
+      <p class="analytics-text">Notebooks: {{ totalAlocacoesHoje()['NOTEBOOK'] }}</p>
+      <p class="analytics-text">Laboratórios: {{ totalAlocacoesHoje()['LABORATORIO'] }}</p>
+      <p class="analytics-text">Salas: {{ totalAlocacoesHoje()['SALA'] }}</p>
+      <p class="analytics-text">Dia mais ocupado é {{ diaMaisOcupado() }}.</p>
     </div>
   </div>
 </div>

@@ -30,7 +30,6 @@ export class Gerenciar {
   ngOnInit() {
     this.laboratorioService.getLaboratorios().subscribe((data) => {
       this.laboratorios = data;
-      console.log('Notebooks:', this.notebooks);
     });
 
     this.notebookService.getNotebooks().subscribe((data) =>{
