@@ -214,13 +214,13 @@ export class ReservaService {
     fkNotebook: number;
     dataReserva: Date;
   }): Observable<ReservaNotebook> {
-    const payload: ReservaPayload = {
-      fkFuncionario: reserva.fkFuncionario,
-      fkRecurso: reserva.fkNotebook,
-      dataReserva: this.toApiDateString(reserva.dataReserva),
+    const payload = {
+      FkFuncionario: reserva.fkFuncionario,
+      FkNotebook: reserva.fkNotebook,
+      DataReserva: this.toApiDateString(reserva.dataReserva),
     };
     return this.http
-      .post<ReservaNotebook>(`${this.apiUrlNotebooks}/reserva-notebooks`, payload)
+      .post<ReservaNotebook>(`${this.apiUrlNotebooks}`, payload)
       .pipe(catchError(this.handleError));
   }
 
@@ -229,13 +229,13 @@ export class ReservaService {
     fkSala: number;
     dataReserva: Date;
   }): Observable<ReservaSala> {
-    const payload: ReservaPayload = {
-      fkFuncionario: reserva.fkFuncionario,
-      fkRecurso: reserva.fkSala,
-      dataReserva: this.toApiDateString(reserva.dataReserva),
+    const payload = {
+      FkFuncionario: reserva.fkFuncionario,
+      FkSala: reserva.fkSala,
+      DataReserva: this.toApiDateString(reserva.dataReserva),
     };
     return this.http
-      .post<ReservaSala>(`${this.apiUrlSalas}/reserva-salas`, payload)
+      .post<ReservaSala>(`${this.apiUrlSalas}`, payload)
       .pipe(catchError(this.handleError));
   }
 
@@ -244,13 +244,13 @@ export class ReservaService {
     fkLaboratorio: number;
     dataReserva: Date;
   }): Observable<ReservaLaboratorio> {
-    const payload: ReservaPayload = {
-      fkFuncionario: reserva.fkFuncionario,
-      fkRecurso: reserva.fkLaboratorio,
-      dataReserva: this.toApiDateString(reserva.dataReserva),
+    const payload = {
+      FkFuncionario: reserva.fkFuncionario,
+      FkLaboratorio: reserva.fkLaboratorio,
+      DataReserva: this.toApiDateString(reserva.dataReserva),
     };
     return this.http
-      .post<ReservaLaboratorio>(`${this.apiUrlLaboratorios}/reserva-laboratorios`, payload)
+      .post<ReservaLaboratorio>(`${this.apiUrlLaboratorios}`, payload)
       .pipe(catchError(this.handleError));
   }
 }

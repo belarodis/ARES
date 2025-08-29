@@ -10,7 +10,6 @@ import { Sala } from '../../models/sala';
 import { SalaService } from '../../services/sala-service';
 import { ReservaService } from '../../services/reserva-service';
 
-
 @Component({
   selector: 'app-modal-reserva',
   imports: [NgClass, CommonModule, FormsModule],
@@ -36,11 +35,13 @@ export class ModalReserva {
   }
 
   tipoAtual: string = '';
-  constructor(private filtroService: FiltroService, 
-              private labService: LaboratorioService, 
-              private notebookService: NotebookService,
-              private salaService: SalaService,
-              private reservaService: ReservaService) {}
+  constructor(
+    private filtroService: FiltroService,
+    private labService: LaboratorioService,
+    private notebookService: NotebookService,
+    private salaService: SalaService,
+    private reservaService: ReservaService
+  ) {}
 
   //acionado sempre depois que o componente for carregado
   ngOnInit() {
@@ -48,17 +49,17 @@ export class ModalReserva {
       this.tipoAtual = tipo;
     });
 
-    this.labService.getLaboratorios().subscribe(data => {
+    this.labService.getLaboratorios().subscribe((data) => {
       this.laboratorios = data;
     });
 
-    this.notebookService.getNotebooks().subscribe(data => {
+    this.notebookService.getNotebooks().subscribe((data) => {
       this.notebooks = data;
-    })
+    });
 
-    this.salaService.getSalas().subscribe(data => {
-      this.salas = data; 
-    })
+    this.salaService.getSalas().subscribe((data) => {
+      this.salas = data;
+    });
   }
 
   //define uma funçção para alterar o tipo selecionado no serviço através do filtro
@@ -66,64 +67,69 @@ export class ModalReserva {
     this.filtroService.setTipoSelected(tipo);
   }
 
-
   // ...existing code...
-reservar() {
-  if (!this.data) return;
+  reservar() {
+    if (!this.data) return;
 
-  // Exemplo: pegue o id do funcionário logado (ajuste conforme sua lógica)
-  const fkFuncionario = 1; // Troque para o id real do usuário logado
+    // Exemplo: pegue o id do funcionário logado (ajuste conforme sua lógica)
+    const fkFuncionario = 2; // Troque para o id real do usuário logado
 
-  const dataReserva = new Date(this.data);
+    const dataReserva = new Date(this.data);
 
-  if (this.tipoAtual === 'sala' && this.salaSelecionada) {
-    this.reservaService.createSalaReservation({
-      fkFuncionario,
-      fkSala: Number(this.salaSelecionada),
-      dataReserva
-    }).subscribe({
-      next: () => {
-        alert('Reserva realizada com sucesso!');
-        this.fechar();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Erro ao tentar reservar.');
-      }
-    });
-  } else if (this.tipoAtual === 'laboratorio' && this.laboratorioSelecionado) {
-    this.reservaService.createLaboratorioReservation({
-      fkFuncionario,
-      fkLaboratorio: Number(this.laboratorioSelecionado),
-      dataReserva
-    }).subscribe({
-      next: () => {
-        alert('Reserva realizada com sucesso!');
-        this.fechar();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Erro ao tentar reservar.');
-      }
-    });
-  } else if (this.tipoAtual === 'notebook' && this.notebookSelecionado) {
-    this.reservaService.createNotebookReservation({
-      fkFuncionario,
-      fkNotebook: Number(this.notebookSelecionado),
-      dataReserva
-    }).subscribe({
-      next: () => {
-        alert('Reserva realizada com sucesso!');
-        this.fechar();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Erro ao tentar reservar.');
-      }
-    });
-  } else {
-    alert('Selecione um recurso para reservar.');
-    return;
-  }
+    if (this.tipoAtual === 'sala' && this.salaSelecionada) {
+      this.reservaService
+        .createSalaReservation({
+          fkFuncionario,
+          fkSala: Number(this.salaSelecionada),
+          dataReserva,
+        })
+        .subscribe({
+          next: () => {
+            alert('Reserva realizada com sucesso!');
+            this.fechar();
+          },
+          error: (err) => {
+            console.error(err);
+            alert('Erro ao tentar reservar.');
+          },
+        });
+    } else if (this.tipoAtual === 'laboratorio' && this.laboratorioSelecionado) {
+      this.reservaService
+        .createLaboratorioReservation({
+          fkFuncionario,
+          fkLaboratorio: Number(this.laboratorioSelecionado),
+          dataReserva,
+        })
+        .subscribe({
+          next: () => {
+            alert('Reserva realizada com sucesso!');
+            this.fechar();
+          },
+          error: (err) => {
+            console.error(err);
+            alert('Erro ao tentar reservar.');
+          },
+        });
+    } else if (this.tipoAtual === 'notebook' && this.notebookSelecionado) {
+      this.reservaService
+        .createNotebookReservation({
+          fkFuncionario,
+          fkNotebook: Number(this.notebookSelecionado),
+          dataReserva,
+        })
+        .subscribe({
+          next: () => {
+            alert('Reserva realizada com sucesso!');
+            this.fechar();
+          },
+          error: (err) => {
+            console.error(err);
+            alert('Erro ao tentar reservar.');
+          },
+        });
+    } else {
+      alert('Selecione um recurso para reservar.');
+      return;
+    }
   }
 }
