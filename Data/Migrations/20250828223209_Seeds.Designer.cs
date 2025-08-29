@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ARESDbContext))]
-    partial class ARESDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250828223209_Seeds")]
+    partial class Seeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1764,9 +1767,6 @@ namespace Data.Migrations
                     b.Property<bool>("TemProjetor")
                         .HasColumnType("bit");
 
-                    b.Property<int>("qtdLugares")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Salas");
@@ -1776,22 +1776,19 @@ namespace Data.Migrations
                         {
                             Id = 1,
                             NumeroSala = "501",
-                            TemProjetor = true,
-                            qtdLugares = 40
+                            TemProjetor = true
                         },
                         new
                         {
                             Id = 2,
                             NumeroSala = "102",
-                            TemProjetor = false,
-                            qtdLugares = 30
+                            TemProjetor = false
                         },
                         new
                         {
                             Id = 3,
                             NumeroSala = "203",
-                            TemProjetor = true,
-                            qtdLugares = 20
+                            TemProjetor = true
                         });
                 });
 

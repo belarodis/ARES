@@ -4,5 +4,6 @@ export interface Sala{
     id: number;
     numeroSala: string;
     temProjetor: boolean;
+    qtdLugares: number;
     reservasSala?: ReservaSala[];
 }

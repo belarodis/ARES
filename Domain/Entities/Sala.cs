@@ -13,6 +13,9 @@ public class Sala
     [Required]
     public bool TemProjetor { get; set; }
 
+    [Required]
+    public int qtdLugares { get; set; }
+
     // Navigation properties
     public ICollection<ReservaSala> Reservas { get; set; }
 }

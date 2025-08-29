@@ -29,7 +29,7 @@ export class Gerenciar {
 
   ngOnInit() {
     this.laboratorioService.getLaboratorios().subscribe((data) => {
-      this.laboratorios = data; // recebe os dados do banco
+      this.laboratorios = data;
       console.log('Notebooks:', this.notebooks);
     });
 
