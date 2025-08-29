@@ -40,4 +40,9 @@ export class Gerenciar {
       this.salas = data;
     });
   }
+
+  onNotebookDeletado(id: number) {
+  this.notebooks = this.notebooks.filter(n => n.id !== id);
+}
+
 }

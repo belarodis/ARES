@@ -84,3 +84,37 @@
   width: auto;
   height: 12px;
 }
+
+#delete-button {
+  border: 1px solid #b6450c;
+  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  background-color: #1a161a;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  display: flex;
+}
+
+#delete-icon {
+  justify-content: center;
+  width: auto;
+  height: 14px;
+}
+
+#delete-button:hover {
+  cursor: pointer;
+}
+
+#delete-button:hover #delete-icon{
+  fill: #FF7824
+}
+
+#edit-button:hover {
+  cursor: pointer;
+}
+
+#edit-button:hover #edit-icon{
+  fill: #FF7824
+}
