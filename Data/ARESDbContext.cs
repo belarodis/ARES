@@ -58,9 +58,9 @@ public class ARESDbContext : DbContext
 
         // Seeds - Salas
         modelBuilder.Entity<Sala>().HasData(
-            new Sala { Id = 1, NumeroSala = "501", TemProjetor = true },
-            new Sala { Id = 2, NumeroSala = "102", TemProjetor = false },
-            new Sala { Id = 3, NumeroSala = "203", TemProjetor = true }
+            new Sala { Id = 1, NumeroSala = "501", qtdLugares = 40, TemProjetor = true },
+            new Sala { Id = 2, NumeroSala = "102", qtdLugares = 30, TemProjetor = false },
+            new Sala { Id = 3, NumeroSala = "203", qtdLugares = 20, TemProjetor = true }
         );
 
         // --- Reservas de Laboratório ---

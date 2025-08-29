@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ARESDbContext))]
-    [Migration("20250828185835_SeedReservasExtras")]
-    partial class SeedReservasExtras
+    [Migration("20250829023832_DBandSeeds")]
+    partial class DBandSeeds
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -745,6 +745,9 @@ namespace Data.Migrations
                     b.Property<bool>("TemProjetor")
                         .HasColumnType("bit");
 
+                    b.Property<int>("qtdLugares")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Salas");
@@ -754,19 +757,22 @@ namespace Data.Migrations
                         {
                             Id = 1,
                             NumeroSala = "501",
-                            TemProjetor = true
+                            TemProjetor = true,
+                            qtdLugares = 40
                         },
                         new
                         {
                             Id = 2,
                             NumeroSala = "102",
-                            TemProjetor = false
+                            TemProjetor = false,
+                            qtdLugares = 30
                         },
                         new
                         {
                             Id = 3,
                             NumeroSala = "203",
-                            TemProjetor = true
+                            TemProjetor = true,
+                            qtdLugares = 20
                         });
                 });
 
