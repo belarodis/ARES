@@ -84,22 +84,3 @@
   width: auto;
   height: 12px;
 }
-
-#status-container {
-  display: flex;
-  border: 1px solid #b6450c;
-  color: #fffbac;
-  border-radius: 6px;
-  background-color: #1a161a;
-  padding-inline: 8px;
-  height: 26px;
-  align-items: center;
-  gap: 4px;
-  transition: all 0.3s ease;
-}
-
-#status-text {
-  font-size: 14px;
-  margin: 0;
-  font-weight: normal;
-}

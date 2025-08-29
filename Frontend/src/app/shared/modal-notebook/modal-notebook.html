@@ -28,19 +28,19 @@
     <!-- Numero de Patrimonio -->
     <div class="campo">
       <label class="title-numero-patrimonio">Número de Patrimônio:</label>
-        <input class="input-numero-patrimonio"/>
+        <input class="input-numero-patrimonio" [(ngModel)]="notebook.nPatrimonio" maxlength="15"/>
     </div>
 
     <!-- Descricao -->
     <div class="campo">
       <label class="title-descricao">Descrição:</label>
-        <textarea class="textarea-descricao"></textarea>
+        <textarea class="textarea-descricao" [(ngModel)]="notebook.descricao"></textarea>
     </div>
 
     <!-- Botões -->
     <div class="acoes">
       <button class="cancelar" (click)="fechar()">Cancelar</button>
-      <button class="reservar">Reservar</button>
+      <button class="confirmar" (click)="salvar()">Confirmar</button>
     </div>
   </div>
 </div>
