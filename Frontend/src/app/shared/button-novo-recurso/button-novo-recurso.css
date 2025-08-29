@@ -6,7 +6,7 @@
   border: 1px solid #b6450c;
   border-radius: 6px;
   background-color: #1a161a;
-  padding-inline: 20px;
+
   height: 50px;
   transition: all 0.3s ease;
   color: #fffbac;
@@ -16,7 +16,17 @@
   cursor: pointer;
   box-shadow: 0 0 22px 0 rgba(255, 120, 36, 0.45);
   background-color: #1a161a;
-  font-weight: 600;
+
+}
+
+.container {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  padding-inline: 20px;
+  transition: all 0.3s ease;
 }
 
 svg {
