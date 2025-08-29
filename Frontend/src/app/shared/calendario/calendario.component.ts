@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { buildMonthGrid, visibleRangeISO } from './calendario.util';
 import { DiaCell, DiaResumo } from '../../models/calendario.model';
 import { ReservaService } from '../../services/reserva-service';
-import { ModalReserva } from "../modal-reserva/modal-reserva";
+import { NotebookService } from '../../services/notebook-service';
+import { LaboratorioService } from '../../services/laboratorio-service';
+import { SalaService } from '../../services/sala-service';
+import { ModalReserva } from '../modal-reserva/modal-reserva';
+import { FiltroService } from '../../services/filtro.service';
 
 @Component({
   selector: 'app-calendario',
@@ -12,7 +16,6 @@ import { ModalReserva } from "../modal-reserva/modal-reserva";
   styleUrls: ['./calendario.css'],
   imports: [CommonModule, ModalReserva],
 })
-  
 export class CalendarioComponent {
   year = signal(new Date().getFullYear());
   month0 = signal(new Date().getMonth());
@@ -33,24 +36,30 @@ export class CalendarioComponent {
     'Dezembro',
   ];
 
-  reservasNotebooks = signal<DiaResumo[]>([]);
-  reservasLaboratorios = signal<DiaResumo[]>([]);
-  reservasSalas = signal<DiaResumo[]>([]);
+  availableNotebooks = signal<DiaResumo[]>([]);
+  availableLaboratorios = signal<DiaResumo[]>([]);
+  availableSalas = signal<DiaResumo[]>([]);
+  diaMaisOcupado = signal<string>('');
 
-  private reservasMock: DiaResumo[] = [
-    { date: '2025-08-05', total: 3, porTipo: { NOTEBOOK: 2, SALA: 1 } },
-    { date: '2025-08-14', total: 5, porTipo: { LABORATORIO: 3, NOTEBOOK: 2 } },
-    { date: '2025-08-27', total: 1, porTipo: { SALA: 1 } },
-  ];
+  tipoAtual = signal('');
+  totalAlocacoesHoje = signal<Record<string, number>>({});
 
-  constructor(private reservaService: ReservaService) {
+  constructor(
+    private notebookService: NotebookService,
+    private laboratorioService: LaboratorioService,
+    private salaService: SalaService,
+    private filtroService: FiltroService,
+    private reservaService: ReservaService
+  ) {
     effect(() => {
       const cells = buildMonthGrid(this.year(), this.month0());
 
-      const reservasMap = this.reservasNotebooks().reduce<Record<string, DiaResumo>>((acc, d) => {
-        acc[d.date] = d;
-        return acc;
-      }, {});
+      const reservasMap = this.tipoSelecionado
+        .filter((d) => d.total > 0)
+        .reduce<Record<string, DiaResumo>>((acc, d) => {
+          acc[d.date] = d;
+          return acc;
+        }, {});
 
       this.grid.set(
         cells.map((c) => ({
@@ -62,30 +71,60 @@ export class CalendarioComponent {
   }
 
   ngOnInit(): void {
-    this.getReservasNotebookForCalendario();
-    this.getReservasLaboratorioForCalendario();
-    this.getReservasSalaForCalendario();
+    this.filtroService.tipoSelected$.subscribe((tipo) => {
+      this.tipoAtual.set(tipo);
+    });
+
+    this.getAvailableNotebookForCalendario();
+    this.getAvailableLaboratorioForCalendario();
+    this.getAvailableSalaForCalendario();
+    this.getDiaMaisOcupado();
+    this.getTotalAlocacoesHoje();
   }
 
-  getReservasNotebookForCalendario(): void {
-    this.reservaService.getReservasNotebookForCalendario().subscribe((reservasNotebooks) => {
-      this.reservasNotebooks.set(reservasNotebooks)
-      console.log(reservasNotebooks)
+  get tipoSelecionado() {
+    if (this.tipoAtual() === 'notebook') {
+      return this.availableNotebooks();
+    }
+    if (this.tipoAtual() === 'laboratorio') {
+      return this.availableLaboratorios();
+    }
+    if (this.tipoAtual() === 'sala') {
+      return this.availableSalas();
+    }
+    return [];
+  }
+
+  getTotalAlocacoesHoje() {
+    this.reservaService.getAlocacoesHoje().subscribe((totalAlocacoesHoje) => {
+      this.totalAlocacoesHoje.set(totalAlocacoesHoje)
+      console.log(totalAlocacoesHoje)
     })
   }
 
-  getReservasLaboratorioForCalendario(): void {
-    this.reservaService.getReservasLaboratorioForCalendario().subscribe((reservasLaboratorios) => {
-      this.reservasLaboratorios.set(reservasLaboratorios)
-      console.log(reservasLaboratorios)
-    })
+  getDiaMaisOcupado() {
+    this.reservaService.getDiaMaisOcupadoTodas().subscribe((diaMaisOcupado) => {
+      this.diaMaisOcupado.set(diaMaisOcupado);
+      console.log(diaMaisOcupado);
+    });
   }
 
-  getReservasSalaForCalendario(): void {
-    this.reservaService.getReservasSalaForCalendario().subscribe((reservasSalas) => {
-      this.reservasSalas.set(reservasSalas)
-      console.log(reservasSalas)
-    })
+  getAvailableNotebookForCalendario(): void {
+    this.notebookService.getDisponiveisPorDia().subscribe((availableNotebooks) => {
+      this.availableNotebooks.set(availableNotebooks);
+    });
+  }
+
+  getAvailableLaboratorioForCalendario(): void {
+    this.laboratorioService.getDisponiveisPorDia().subscribe((availableLaboratorios) => {
+      this.availableLaboratorios.set(availableLaboratorios);
+    });
+  }
+
+  getAvailableSalaForCalendario(): void {
+    this.salaService.getDisponiveisPorDia().subscribe((availableSalas) => {
+      this.availableSalas.set(availableSalas);
+    });
   }
 
   prevMonth() {
@@ -111,17 +150,16 @@ export class CalendarioComponent {
   }
 
   dataSelecionada: string | null = null;
-  isVisible: boolean = false
-  
-  abrirModal(data: string){
+  isVisible: boolean = false;
+
+  abrirModal(data: string) {
     console.log(data);
     this.dataSelecionada = data;
     this.isVisible = true;
   }
 
-  fecharModal(){
+  fecharModal() {
     this.isVisible = false;
     this.dataSelecionada = null;
   }
-
 }

@@ -73,7 +73,7 @@
     </div>
 
     <!-- Data -->
-    <div class="campo">
+    <div class="campo" (click)="$event.stopPropagation()">
       <label for="data">Data da reserva:</label>
       <div class="input-icone">
         <svg
@@ -89,7 +89,7 @@
           />
         </svg>
         <!-- usa a data que já vem do @Input -->
-        <input type="date" id="data" [value]="data ?? ''" />
+        <input type="date" id="data" [value]="data"/>
       </div>
     </div>
 
