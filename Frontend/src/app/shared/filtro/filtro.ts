@@ -5,6 +5,7 @@ import { NgClass, CommonModule } from '@angular/common';
 @Component({
   selector: 'app-filtro',
   imports: [NgClass, CommonModule],
+  standalone: true,
   templateUrl: './filtro.html',
   styleUrl: './filtro.css',
 })

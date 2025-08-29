@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { buildMonthGrid, visibleRangeISO } from './calendario.util';
 import { DiaCell, DiaResumo } from '../../models/calendario.model';
 import { ReservaService } from '../../services/reserva-service';
+import { ModalReserva } from "../modal-reserva/modal-reserva";
 
 @Component({
   selector: 'app-calendario',
   standalone: true,
   templateUrl: './calendario.html',
   styleUrls: ['./calendario.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, ModalReserva],
 })
   
 export class CalendarioComponent {
@@ -108,4 +109,18 @@ export class CalendarioComponent {
     this.year.set(y);
     this.month0.set(m);
   }
+
+  dataSelecionada: string | null = null;
+  isVisible: boolean = false
+  
+  abrirModal(data: string){
+    this.dataSelecionada = data;
+    this.isVisible = true;
+  }
+
+  fecharModal(){
+    this.isVisible = false;
+    this.dataSelecionada = null;
+  }
+
 }

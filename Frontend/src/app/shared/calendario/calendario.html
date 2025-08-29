@@ -18,27 +18,36 @@
     </div>
 
     <div class="calendario-interno">
-        <!-- 6 semanas -->
-        @for (semana of [0,1,2,3,4,5]; track semana) {
-          <div class="semana">
-            @for (dia of grid().slice(semana*7, (semana+1)*7); track $index) {
-              <div class="dia"
-                   [class.fora-do-mes]="!dia.inMonth"
-                   [class.hoje]="dia.isToday">
-                <p class="numero">{{ dia.iso.slice(-2) }}</p>
-                @if (dia.resumo) {
-                  <div class="badge-container">
-                    <p class="badge">{{ dia.resumo.total }}</p>
-                  </div>
-                }
-              </div>
-            }
+      <!-- 6 semanas -->
+      @for (semana of [0,1,2,3,4,5]; track semana) {
+      <div class="semana">
+        @for (dia of grid().slice(semana*7, (semana+1)*7); track $index) {
+        <div
+          class="dia"
+          (click)="abrirModal(dia.iso)"
+          [class.fora-do-mes]="!dia.inMonth"
+          [class.hoje]="dia.isToday"
+        >
+          <p class="numero">{{ dia.iso.slice(-2) }}</p>
+          @if (dia.resumo) {
+          <div class="badge-container">
+            <p class="badge">{{ dia.resumo.total }}</p>
           </div>
+          }
+        </div>
         }
+      </div>
+      }
     </div>
     <div class="analytics-container">
-        <p class="analytics-text">12 Reservas</p>
-        <p class="analytics-text">Dia mais ocupado: 14/08/2025</p>
+      <p class="analytics-text">12 Reservas</p>
+      <p class="analytics-text">Dia mais ocupado: 14/08/2025</p>
     </div>
   </div>
 </div>
+
+<app-modal-reserva 
+  *ngIf="isVisible" 
+  (close)="fecharModal()">
+</app-modal-reserva>
+

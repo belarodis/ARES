@@ -1,0 +1,7 @@
+<div class="overlay" (click)="fechar()">
+    <div class="modal" (click)="$event.stopPropagation()">
+        <p>Reserva</p>
+        <p>Data selecionada: {{data}}</p>
+        <button (click)="fechar()">Cancelar</button>
+    </div>
+</div>
