@@ -39,14 +39,17 @@ export class CalendarioComponent {
   availableNotebooks = signal<DiaResumo[]>([]);
   availableLaboratorios = signal<DiaResumo[]>([]);
   availableSalas = signal<DiaResumo[]>([]);
+  diaMaisOcupado = signal<string>('');
 
   tipoAtual = signal('');
+  totalAlocacoesHoje = signal<Record<string, number>>({});
 
   constructor(
     private notebookService: NotebookService,
     private laboratorioService: LaboratorioService,
     private salaService: SalaService,
-    private filtroService: FiltroService
+    private filtroService: FiltroService,
+    private reservaService: ReservaService
   ) {
     effect(() => {
       const cells = buildMonthGrid(this.year(), this.month0());
@@ -75,6 +78,8 @@ export class CalendarioComponent {
     this.getAvailableNotebookForCalendario();
     this.getAvailableLaboratorioForCalendario();
     this.getAvailableSalaForCalendario();
+    this.getDiaMaisOcupado();
+    this.getTotalAlocacoesHoje();
   }
 
   get tipoSelecionado() {
@@ -88,6 +93,20 @@ export class CalendarioComponent {
       return this.availableSalas();
     }
     return [];
+  }
+
+  getTotalAlocacoesHoje() {
+    this.reservaService.getAlocacoesHoje().subscribe((totalAlocacoesHoje) => {
+      this.totalAlocacoesHoje.set(totalAlocacoesHoje)
+      console.log(totalAlocacoesHoje)
+    })
+  }
+
+  getDiaMaisOcupado() {
+    this.reservaService.getDiaMaisOcupadoTodas().subscribe((diaMaisOcupado) => {
+      this.diaMaisOcupado.set(diaMaisOcupado);
+      console.log(diaMaisOcupado);
+    });
   }
 
   getAvailableNotebookForCalendario(): void {
@@ -105,7 +124,6 @@ export class CalendarioComponent {
   getAvailableSalaForCalendario(): void {
     this.salaService.getDisponiveisPorDia().subscribe((availableSalas) => {
       this.availableSalas.set(availableSalas);
-      console.log(availableSalas);
     });
   }
 

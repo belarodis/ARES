@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { forkJoin, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ReservaLaboratorio } from '../models/reserva-laboratorio';
 import { ReservaNotebook } from '../models/reserva-notebook';
 import { ReservaSala } from '../models/reserva-sala';
 import { DiaResumo } from '../models/calendario.model';
+import { TipoRecurso } from '../models/utils';
 
 export interface ReservaPayload {
   fkFuncionario: number;
@@ -33,6 +34,78 @@ export class ReservaService {
 
   private toApiDateString(date: Date): string {
     return date.toISOString().split('T')[0];
+  }
+
+  getAlocacoesHoje(): Observable<Record<TipoRecurso, number>> {
+    const hoje = new Date().toISOString().split('T')[0]; // formato 'YYYY-MM-DD'
+
+    return forkJoin([
+      this.getReservasNotebookForCalendario(),
+      this.getReservasLaboratorioForCalendario(),
+      this.getReservasSalaForCalendario(),
+    ]).pipe(
+      map(([notebooks, labs, salas]) => {
+        const todas = [...notebooks, ...labs, ...salas];
+
+        // Inicializa com todos os tipos de recurso
+        const resultado: Record<TipoRecurso, number> = {
+          NOTEBOOK: 0,
+          LABORATORIO: 0,
+          SALA: 0,
+        };
+
+        todas.forEach((dia) => {
+          if (dia.date === hoje) {
+            Object.keys(dia.porTipo).forEach((tipo) => {
+              const t = tipo as TipoRecurso;
+              resultado[t] += dia.porTipo[t] || 0;
+            });
+          }
+        });
+
+        return resultado;
+      })
+    );
+  }
+
+  getDiaMaisOcupadoTodas(): Observable<string> {
+    return forkJoin([
+      this.getReservasNotebookForCalendario(),
+      this.getReservasLaboratorioForCalendario(),
+      this.getReservasSalaForCalendario(),
+    ]).pipe(
+      map(([notebooks, labs, salas]) => {
+        const todos = [...notebooks, ...labs, ...salas];
+
+        const diasSemana = [
+          'domingo',
+          'segunda-feira',
+          'terça-feira',
+          'quarta-feira',
+          'quinta-feira',
+          'sexta-feira',
+          'sábado',
+        ];
+        const contador: { [dia: string]: number } = {};
+
+        todos.forEach((dia) => {
+          const data = new Date(dia.date);
+          const nomeDia = diasSemana[data.getDay()];
+          contador[nomeDia] = (contador[nomeDia] || 0) + dia.total;
+        });
+
+        let diaMaisOcupado = '';
+        let max = 0;
+        for (const dia in contador) {
+          if (contador[dia] > max) {
+            max = contador[dia];
+            diaMaisOcupado = dia;
+          }
+        }
+
+        return diaMaisOcupado;
+      })
+    );
   }
 
   getReservasNotebookForCalendario(): Observable<DiaResumo[]> {
