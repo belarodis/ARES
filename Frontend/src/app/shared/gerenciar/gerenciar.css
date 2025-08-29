@@ -18,6 +18,13 @@
   scrollbar-color: #4f5765 #0d141f; /* Firefox: cor barra e trilho */
 }
 
+.title {
+  color: #9bb0bc;
+  font-size: 20px;
+  margin-top: 0;
+  font-weight: 600;
+}
+
 /* Chrome, Edge, Safari */
 :host::-webkit-scrollbar {
   width: 8px;             /* largura da barra */
