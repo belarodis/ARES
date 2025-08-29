@@ -30,9 +30,18 @@
         >
           <p class="numero">{{ dia.iso.slice(-2) }}</p>
           @if (dia.resumo) {
-          <div class="badge-container">
-            <p class="badge">{{ dia.resumo.total }}</p>
-          </div>
+            <div class="container-badges">
+              <div class="badge-container1">
+                <p class="badge">{{ dia.resumo.total }}</p>
+              </div>
+              @if (3 - dia.resumo.total > 0) {
+                <div class="badge-container2">
+                  <p class="badge">{{ 3 - dia.resumo.total }}</p>
+                </div>
+
+              }
+            </div>
+
           }
         </div>
         }
@@ -40,7 +49,7 @@
       }
     </div>
     <div class="analytics-container">
-      <p class="analytics-text">Alocações hoje: </p>
+      <p class="analytics-text">Alocações hoje:</p>
       <p class="analytics-text">Notebooks: {{ totalAlocacoesHoje()['NOTEBOOK'] }}</p>
       <p class="analytics-text">Laboratórios: {{ totalAlocacoesHoje()['LABORATORIO'] }}</p>
       <p class="analytics-text">Salas: {{ totalAlocacoesHoje()['SALA'] }}</p>
@@ -49,8 +58,5 @@
   </div>
 </div>
 
-<app-modal-reserva 
-  *ngIf="isVisible" 
-  [data]="dataSelecionada"
-  (close)="fecharModal()">
+<app-modal-reserva *ngIf="isVisible" [data]="dataSelecionada" (close)="fecharModal()">
 </app-modal-reserva>
