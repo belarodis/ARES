@@ -32,11 +32,11 @@ public class ReservaNotebookRepository : IReservaNotebookRepository
             .Include(r => r.Funcionario)
             .ToListAsync();
     }
-    
-    public async Task<bool> IsNotebookReservedOnDateAsync(int notebookId, DateOnly dataReserva)
+
+    public async Task<bool> IsNotebookReservedOnDateAsync(int funcionarioId, DateOnly dataReserva)
     {
         return await _context.ReservaNotebooks
-            .AnyAsync(r => r.FkNotebook == notebookId && r.DataReserva == dataReserva);
+            .AnyAsync(r => r.FkFuncionario == funcionarioId && r.DataReserva == dataReserva);
     }
 
     public async Task DeleteAsync(int id)

@@ -19,17 +19,21 @@ public class ReservaLaboratoriosController : ControllerBase
 
     // POST api/reservala-boratorios
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] ReservaLaboratorio reservaLaboratorio)
+    public async Task<IActionResult> Post([FromBody] Api.dtos.ReservaLaboratorioDto dto)
     {
-        bool success = await _reservaLaboratorioService.AddAsync(reservaLaboratorio);
-        if (success)
+        var reserva = new ReservaLaboratorio
         {
-            return CreatedAtAction(nameof(GetById), new { id = reservaLaboratorio.Id }, reservaLaboratorio);
-        }
-        
-        return BadRequest("Laboratório já reservado para a data ou o funcionário já tem uma reserva de notebook ou sala para o dia.");
+            FkFuncionario = dto.FkFuncionario,
+            FkLaboratorio = dto.FkLaboratorio,
+            DataReserva = dto.DataReserva
+        };
+        bool success = await _reservaLaboratorioService.AddAsync(reserva);
+        if (success)
+            return CreatedAtAction(nameof(GetById), new { id = reserva.Id }, reserva);
+            
+        return BadRequest("Laboratório já reservado para a data ou o funcionário já tem outra reserva para o dia.");
     }
-    
+
     // GET api/reserva-laboratorios
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ReservaLaboratorio>>> Get()
@@ -49,7 +53,7 @@ public class ReservaLaboratoriosController : ControllerBase
         }
         return Ok(reserva);
     }
-    
+
     // DELETE api/reserva-laboratorios/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
