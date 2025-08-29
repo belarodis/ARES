@@ -1,6 +1,6 @@
 <p class="title">Gerenciar Recursos</p>
 <div *ngFor="let notebook of notebooks">
-    <app-recurso-notebook [notebook]="notebook"></app-recurso-notebook>
+    <app-recurso-notebook [notebook]="notebook" (deleted)="onNotebookDeletado(notebook.id)"></app-recurso-notebook>
 </div>
 <div *ngFor="let sala of salas">
     <app-recurso-sala [sala]="sala"></app-recurso-sala>

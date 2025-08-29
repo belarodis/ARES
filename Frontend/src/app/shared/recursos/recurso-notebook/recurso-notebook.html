@@ -23,7 +23,7 @@
       viewBox="0 0 16 16"
       fill="#4F5765"
     >
-      <title> {{ notebook?.descricao }} </title>
+      <title>{{ notebook?.descricao }}</title>
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
@@ -43,7 +43,7 @@
   <p class="subtext" id="subtext">Aquisição: {{ notebook?.dataAquisicao }}</p>
 </div>
 
-<div class="right-container" id="right-container">
+<div class="right-container" id="right-container" (click)="abrirModalEdicao()">
   <div class="edit-button" id="edit-button">
     <svg
       id="edit-icon"
@@ -59,5 +59,31 @@
     </svg>
   </div>
 
-
+  <div
+    class="delete-button"
+    id="delete-button"
+    *ngIf="notebook"
+    (click)="$event.stopPropagation()"
+    (click)="deletarNotebook(notebook.id)"
+  >
+    <svg
+      id="delete-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="13"
+      h
+      eight="17"
+      viewBox="0 0 13 17"
+      fill="#FFFBAC"
+    >
+      <path
+        d="M8.99219 2.49207H11.9922C12.5922 2.49207 12.9922 2.89207 12.9922 3.49207V4.49207H-0.0078125V3.49207C-0.0078125 2.89207 0.492188 2.49207 0.992188 2.49207H3.99219C4.19219 1.39207 5.29219 0.492065 6.49219 0.492065C7.69219 0.492065 8.79219 1.39207 8.99219 2.49207ZM4.99219 2.49207H7.99219C7.79219 1.89207 7.09219 1.49207 6.49219 1.49207C5.89219 1.49207 5.19219 1.89207 4.99219 2.49207ZM0.992188 5.49207H11.9922L11.0922 15.5921C11.0922 16.0921 10.5922 16.4921 10.0922 16.4921H2.89219C2.39219 16.4921 1.99219 16.0921 1.89219 15.5921L0.992188 5.49207Z"
+      />
+    </svg>
+  </div>
 </div>
+
+<!-- Modal de edição -->
+@if (isEditVisible) {
+<app-modal-edit-notebook [notebook]="notebook" (close)="fecharModalEdicao()">
+</app-modal-edit-notebook>
+}
