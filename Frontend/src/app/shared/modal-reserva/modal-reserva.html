@@ -93,11 +93,10 @@
       </div>
     </div>
 
-    
     <!-- Dropdowns  -->
     <div class="campo" *ngIf="tipoAtual === 'notebook'">
       <label for="">Notebooks:</label>
-      <select id="lab" [(ngModel)]="laboratorioSelecionado">
+      <select id="notebook" [(ngModel)]="notebookSelecionado">
         <option value="">Selecione</option>
         <option *ngFor="let note of notebooks" [value]="note.id">
           {{ note.nPatrimonio }}
@@ -115,7 +114,7 @@
       </select>
     </div>
 
-    <div class="campo" *ngIf=" tipoAtual === 'laboratorio'">
+    <div class="campo" *ngIf="tipoAtual === 'laboratorio'">
       <label for="lab">Laboratório:</label>
       <select id="lab" [(ngModel)]="laboratorioSelecionado">
         <option value="">Selecione</option>
@@ -128,7 +127,7 @@
     <!-- Botões -->
     <div class="acoes">
       <button class="cancelar" (click)="fechar()">Cancelar</button>
-      <button class="reservar">Reservar</button>
+      <button class="reservar" (click)="reservar()">Reservar</button>
     </div>
   </div>
 </div>

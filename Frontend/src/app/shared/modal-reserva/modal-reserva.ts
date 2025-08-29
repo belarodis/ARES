@@ -8,6 +8,7 @@ import { Notebook } from '../../models/notebook';
 import { NotebookService } from '../../services/notebook-service';
 import { Sala } from '../../models/sala';
 import { SalaService } from '../../services/sala-service';
+import { ReservaService } from '../../services/reserva-service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class ModalReserva {
   constructor(private filtroService: FiltroService, 
               private labService: LaboratorioService, 
               private notebookService: NotebookService,
-              private salaService: SalaService) {}
+              private salaService: SalaService,
+              private reservaService: ReservaService) {}
 
   //acionado sempre depois que o componente for carregado
   ngOnInit() {
@@ -62,5 +64,66 @@ export class ModalReserva {
   //define uma funçção para alterar o tipo selecionado no serviço através do filtro
   selecionar(tipo: string) {
     this.filtroService.setTipoSelected(tipo);
+  }
+
+
+  // ...existing code...
+reservar() {
+  if (!this.data) return;
+
+  // Exemplo: pegue o id do funcionário logado (ajuste conforme sua lógica)
+  const fkFuncionario = 1; // Troque para o id real do usuário logado
+
+  const dataReserva = new Date(this.data);
+
+  if (this.tipoAtual === 'sala' && this.salaSelecionada) {
+    this.reservaService.createSalaReservation({
+      fkFuncionario,
+      fkSala: Number(this.salaSelecionada),
+      dataReserva
+    }).subscribe({
+      next: () => {
+        alert('Reserva realizada com sucesso!');
+        this.fechar();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Erro ao tentar reservar.');
+      }
+    });
+  } else if (this.tipoAtual === 'laboratorio' && this.laboratorioSelecionado) {
+    this.reservaService.createLaboratorioReservation({
+      fkFuncionario,
+      fkLaboratorio: Number(this.laboratorioSelecionado),
+      dataReserva
+    }).subscribe({
+      next: () => {
+        alert('Reserva realizada com sucesso!');
+        this.fechar();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Erro ao tentar reservar.');
+      }
+    });
+  } else if (this.tipoAtual === 'notebook' && this.notebookSelecionado) {
+    this.reservaService.createNotebookReservation({
+      fkFuncionario,
+      fkNotebook: Number(this.notebookSelecionado),
+      dataReserva
+    }).subscribe({
+      next: () => {
+        alert('Reserva realizada com sucesso!');
+        this.fechar();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Erro ao tentar reservar.');
+      }
+    });
+  } else {
+    alert('Selecione um recurso para reservar.');
+    return;
+  }
   }
 }
