@@ -19,8 +19,8 @@ public class ReservaNotebook : IHasDateOnly
 
     // Navigation properties
     [ForeignKey("FkFuncionario")]
-    public Funcionario Funcionario { get; set; }
+    public Funcionario? Funcionario { get; set; }
 
     [ForeignKey("FkNotebook")]
-    public Notebook Notebook { get; set; }
+    public Notebook? Notebook { get; set; }
 }

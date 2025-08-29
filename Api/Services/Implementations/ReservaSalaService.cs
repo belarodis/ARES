@@ -21,8 +21,8 @@ public class ReservaSalaService : IReservaSalaService
 
     public async Task<bool> AddAsync(ReservaSala reservaSala)
     {
-        bool isReserved = await _reservaSalaRepository.IsSalaReservedOnDateAsync(reservaSala.FkSala, reservaSala.DataReserva);
-        if (isReserved)
+        bool isSalaReserved = await _reservaSalaRepository.IsSalaReservedOnDateAsync(reservaSala.FkSala, reservaSala.DataReserva);
+        if (isSalaReserved)
         {
             return false;
         }
