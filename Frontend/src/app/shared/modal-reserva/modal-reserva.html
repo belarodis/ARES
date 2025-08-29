@@ -93,20 +93,41 @@
       </div>
     </div>
 
-    <!-- Select exemplo -->
-    <div class="campo">
-      <label for="lab">{{ tipoAtual | titlecase }}:</label>
-      <select id="lab">
+    <!-- Dropdowns  -->
+    <div class="campo" *ngIf="tipoAtual === 'notebook'">
+      <label for="">Notebooks:</label>
+      <select id="notebook" [(ngModel)]="notebookSelecionado">
         <option value="">Selecione</option>
-        <option value="lab1">Laboratório 1</option>
-        <option value="lab2">Laboratório 2</option>
+        <option *ngFor="let note of notebooks" [value]="note.id">
+          {{ note.nPatrimonio }}
+        </option>
+      </select>
+    </div>
+
+    <div class="campo" *ngIf="tipoAtual === 'sala'">
+      <label for="">Salas:</label>
+      <select id="sala" [(ngModel)]="salaSelecionada">
+        <option value="">Selecione</option>
+        <option *ngFor="let sala of salas" [value]="sala.id">
+          {{ sala.numeroSala }}
+        </option>
+      </select>
+    </div>
+
+    <div class="campo" *ngIf="tipoAtual === 'laboratorio'">
+      <label for="lab">Laboratório:</label>
+      <select id="lab" [(ngModel)]="laboratorioSelecionado">
+        <option value="">Selecione</option>
+        <option *ngFor="let lab of laboratorios" [value]="lab.id">
+          {{ lab.nome }}
+        </option>
       </select>
     </div>
 
     <!-- Botões -->
     <div class="acoes">
       <button class="cancelar" (click)="fechar()">Cancelar</button>
-      <button class="reservar">Reservar</button>
+      <button class="reservar" (click)="reservar()">Reservar</button>
     </div>
   </div>
 </div>
