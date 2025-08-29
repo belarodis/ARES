@@ -6,13 +6,14 @@ import { ReservaService } from '../../services/reserva-service';
 import { NotebookService } from '../../services/notebook-service';
 import { LaboratorioService } from '../../services/laboratorio-service';
 import { SalaService } from '../../services/sala-service';
+import { ModalReserva } from "../modal-reserva/modal-reserva";
 
 @Component({
   selector: 'app-calendario',
   standalone: true,
   templateUrl: './calendario.html',
   styleUrls: ['./calendario.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, ModalReserva],
 })
 export class CalendarioComponent {
   year = signal(new Date().getFullYear());
@@ -110,4 +111,19 @@ export class CalendarioComponent {
     this.year.set(y);
     this.month0.set(m);
   }
+
+  dataSelecionada: string | null = null;
+  isVisible: boolean = false
+  
+  abrirModal(data: string){
+    console.log(data);
+    this.dataSelecionada = data;
+    this.isVisible = true;
+  }
+
+  fecharModal(){
+    this.isVisible = false;
+    this.dataSelecionada = null;
+  }
+
 }

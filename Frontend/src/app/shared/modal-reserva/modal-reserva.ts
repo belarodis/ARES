@@ -1,15 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FiltroService } from '../../services/filtro.service';
 import { NgClass, CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-filtro',
+  selector: 'app-modal-reserva',
   imports: [NgClass, CommonModule],
   standalone: true,
-  templateUrl: './filtro.html',
-  styleUrl: './filtro.css',
+  templateUrl: './modal-reserva.html',
+  styleUrl: './modal-reserva.css',
 })
-export class Filtro {
+export class ModalReserva {
+  @Output() close = new EventEmitter<void>();
+  @Input() data!: string | null;
+
+  fechar() {
+    this.close.emit(); // avisa o pai que quer fechar
+  }
+
   tipoAtual: string = '';
   constructor(private filtroService: FiltroService) {}
 
