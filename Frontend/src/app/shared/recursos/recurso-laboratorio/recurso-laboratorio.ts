@@ -6,8 +6,17 @@ import { Laboratorio } from '../../../models/laboratorio';
   selector: 'app-recurso-laboratorio',
   imports: [CommonModule],
   templateUrl: './recurso-laboratorio.html',
-  styleUrl: '../recurso.css'
+  styleUrl: '../recurso.css',
 })
 export class RecursoLaboratorio {
-  @Input() laboratorio? : Laboratorio;
+  @Input() laboratorio?: Laboratorio;
+
+  showTooltip = false;
+  tooltipX = 0;
+  tooltipY = 0;
+
+  onMouseMove(event: MouseEvent) {
+    this.tooltipX = event.clientX + 12;
+    this.tooltipY = event.clientY + 12;
+  }
 }
