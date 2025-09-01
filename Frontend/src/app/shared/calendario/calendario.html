@@ -1,0 +1,62 @@
+<div class="container">
+  <header class="header">
+    <button class="mes-button" (click)="prevMonth()">◀</button>
+    <span class="mes-ano-text">{{ meses[month0()] }} {{ year() }}</span>
+    <button class="mes-button" (click)="nextMonth()">▶</button>
+  </header>
+
+  <div class="calendario">
+    <!-- cabeçalho dos dias da semana -->
+    <div class="semana-header-dias">
+      <div class="dia-header"><p>Seg</p></div>
+      <div class="dia-header"><p>Ter</p></div>
+      <div class="dia-header"><p>Qua</p></div>
+      <div class="dia-header"><p>Qui</p></div>
+      <div class="dia-header"><p>Sex</p></div>
+      <div class="dia-header"><p>Sáb</p></div>
+      <div class="dia-header"><p>Dom</p></div>
+    </div>
+
+    <div class="calendario-interno">
+      <!-- 6 semanas -->
+      @for (semana of [0,1,2,3,4,5]; track semana) {
+      <div class="semana">
+        @for (dia of grid().slice(semana*7, (semana+1)*7); track $index) {
+        <div
+          class="dia"
+          (click)="abrirModal(dia.iso)"
+          [class.fora-do-mes]="!dia.inMonth"
+          [class.hoje]="dia.isToday"
+        >
+          <p class="numero">{{ dia.iso.slice(-2) }}</p>
+          @if (dia.resumo) {
+            <div class="container-badges">
+              <div class="badge-container1">
+                <p class="badge">{{ dia.resumo.total }}</p>
+              </div>
+              @if (3 - dia.resumo.total > 0) {
+                <div class="badge-container2">
+                  <p class="badge">{{ 3 - dia.resumo.total }}</p>
+                </div>
+
+              }
+            </div>
+
+          }
+        </div>
+        }
+      </div>
+      }
+    </div>
+    <div class="analytics-container">
+      <p class="analytics-text">Alocações hoje:</p>
+      <p class="analytics-text">Notebooks: {{ totalAlocacoesHoje()['NOTEBOOK'] }}</p>
+      <p class="analytics-text">Laboratórios: {{ totalAlocacoesHoje()['LABORATORIO'] }}</p>
+      <p class="analytics-text">Salas: {{ totalAlocacoesHoje()['SALA'] }}</p>
+      <p class="analytics-text">Dia mais ocupado é {{ diaMaisOcupado() }}.</p>
+    </div>
+  </div>
+</div>
+
+<app-modal-reserva *ngIf="isVisible" [data]="dataSelecionada" (close)="fecharModal()">
+</app-modal-reserva>

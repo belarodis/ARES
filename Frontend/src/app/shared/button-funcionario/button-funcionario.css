@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: 6px;
+
+  border: 1px solid #b6450c;
+  border-radius: 6px;
+  background-color: #1a161a;
+  padding-inline: 12px;
+  padding-block: 6px;
+
+  transition: all 0.3s ease;
+}
+
+
+.container:hover {
+  cursor: pointer;
+  box-shadow: 0 0 22px 0 rgba(255, 120, 36, 0.25);
+  color: #fffbac;
+}
+
+.icon {
+  height: 15px;
+  margin-right: 4px;
+  fill: #9bb0bc;
+}
+
+.container:hover .icon {
+  fill: #fffbac;
+}
+
+/* 🔥 aqui o truque: estilizar o select */
+.custom-select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #9bb0bc;
+  font-size: 14px;
+  font-family: inherit;
+
+  /* remove setinha nativa */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  cursor: pointer;
+}
+

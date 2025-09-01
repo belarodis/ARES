@@ -1,0 +1,51 @@
+<div class="overlay" (click)="fechar()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <!-- Título -->
+    <h2 class="titulo">Editar Notebook</h2>
+    <p class="subtitulo">Altere os campos desejados</p>
+
+    <div class="main-container">
+      <!-- Container de Notebooks -->
+      <div class="container container-notebooks">
+        <svg
+          class="icon-notebooks"
+          xmlns="http://www.w3.org/2000/svg"
+          width="33"
+          height="22"
+          viewBox="0 0 33 22"
+          fill="#4F5765"
+        >
+          <path
+            d="M27.5 19.25C29.0125 19.25 30.25 18.0125 30.25 16.5V2.75C30.25 1.2375 29.0125 0 27.5 0H5.5C3.9875 0 2.75 1.2375 2.75 2.75V16.5C2.75 18.0125 3.9875 19.25 5.5 19.25H1.375C0.61875 19.25 0 19.8687 0 20.625C0 21.3813 0.61875 22 1.375 22H31.625C32.3812 22 33 21.3813 33 20.625C33 19.8687 32.3812 19.25 31.625 19.25H27.5ZM6.875 2.75H26.125C26.8813 2.75 27.5 3.36875 27.5 4.125V15.125C27.5 15.8813 26.8813 16.5 26.125 16.5H6.875C6.11875 16.5 5.5 15.8813 5.5 15.125V4.125C5.5 3.36875 6.11875 2.75 6.875 2.75Z"
+          />
+        </svg>
+        <p class="text text-todos">Notebook</p>
+      </div>
+    </div>
+
+    <!-- Numero de Patrimonio -->
+    <div class="campo">
+      <label class="title-numero-patrimonio">Número de Patrimônio:</label>
+      <input 
+        class="input-numero-patrimonio" 
+        [(ngModel)]="notebookEdit.nPatrimonio" 
+        maxlength="15"
+      />
+    </div>
+
+    <!-- Descricao -->
+    <div class="campo">
+      <label class="title-descricao">Descrição:</label>
+      <textarea 
+        class="textarea-descricao" 
+        [(ngModel)]="notebookEdit.descricao">
+      </textarea>
+    </div>
+
+    <!-- Botões -->
+    <div class="acoes">
+      <button class="cancelar" (click)="fechar()">Cancelar</button>
+      <button class="confirmar" (click)="salvar()">Salvar Alterações</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+import { ReservaSala } from "./reserva-sala";
+
+export interface Sala{
+    id: number;
+    numeroSala: string;
+    temProjetor: boolean;
+    qtdLugares: number;
+    reservasSala?: ReservaSala[];
+}

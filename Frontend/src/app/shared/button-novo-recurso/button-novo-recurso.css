@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #b6450c;
+  border-radius: 6px;
+  background-color: #1a161a;
+
+  height: 50px;
+  transition: all 0.3s ease;
+  color: #fffbac;
+}
+
+:host:hover {
+  cursor: pointer;
+  box-shadow: 0 0 22px 0 rgba(255, 120, 36, 0.45);
+  background-color: #1a161a;
+
+}
+
+.container {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  padding-inline: 20px;
+  transition: all 0.3s ease;
+}
+
+svg {
+  display: flex;
+  width: 18px;
+  height: auto;
+}
+
+p {
+  display: flex;
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}

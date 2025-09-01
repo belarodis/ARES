@@ -1,0 +1,78 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 50px;
+  outline: 2px solid #202c42;
+  border-radius: 12px;
+  z-index: 1;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding-inline: 35px;
+  border-radius: 10px;
+  z-index: 2;
+  outline: 2px solid #b6450c00;
+  transition: all 0.1s ease;
+}
+
+.container:hover {
+  cursor: pointer;
+}
+
+.container:hover .text {
+  color: #fffbac;
+}
+
+.container .text {
+  transition: all 0.2s ease;
+}
+
+.container.ativo .text {
+  color: #fffbac;
+}
+
+.container.ativo {
+  background-color: #1a161a;
+  cursor: pointer;
+  outline: 2px solid #b6450c;
+  z-index: 3;
+}
+
+.text {
+  margin: 0;
+  padding: 0;
+  color: #9bb0bc;
+}
+
+.container.ativo .icon-todos,
+.container.ativo .icon-notebooks,
+.container.ativo .icon-salas {
+  fill: #FF7824;
+}
+
+.container.ativo .icon-laboratorios {
+  stroke: #FF7824;
+}
+
+.container:hover .icon-todos,
+.container:hover .icon-notebooks,
+.container:hover .icon-salas {
+  fill: #FF7824;
+}
+
+.container:hover .icon-laboratorios {
+  stroke: #FF7824;
+}
+
+.icon-todos,
+.icon-notebooks,
+.icon-salas,
+.icon-laboratorios {
+  transition: all 0.2s ease;
+}
